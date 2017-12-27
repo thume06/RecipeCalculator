@@ -12,14 +12,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.CalculatorScreen">
    <children>
-      <ImageView fitHeight="680.0" fitWidth="534.0" layoutX="1.0" opacity="0.67" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="680.0" fitWidth="534.0" layoutX="1.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/background.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="170.0" layoutY="21.0" text="Recipe Calculator">
+      <Label layoutX="101.0" layoutY="14.0" text="RECIPE CALCULATOR">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="Britannic Bold" size="36.0" />
          </font>
       </Label>
       <TextField fx:id="ingredientName" layoutX="35.0" layoutY="92.0" prefHeight="25.0" prefWidth="150.0" />
