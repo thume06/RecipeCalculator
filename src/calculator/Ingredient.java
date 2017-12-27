@@ -99,7 +99,7 @@ public class Ingredient{
            rationalVal = toString();
 
            if(fracNum != 0) {
-               //if fraction and and whole have same uni9t
+               //if fraction and and whole have same unit
                if(fracUnit.equals(unit)){
                    //for special cases where certain fraction values must be converted
                    if(rationalVal.equals("3/8") && unit.equals("Cup")){
@@ -117,14 +117,33 @@ public class Ingredient{
                    else if(rationalVal.equals("7/8") && unit.equals("Tbsp")){
                        info = (name + ": " + wholeNum + " " + unit + " and 2 and 5/8 Tsp");
                    }
+                   //Non-special cases
                    else {
-                       info = (name + ": " + wholeNum + " and " + rationalVal + " " + unit);
+                       if(CalculatorScreen.getRound()){
+                           String roundAmnt = Round(rationalVal, unit);
+                           //If it is rounded to one, just add that to the whole amount
+                           if(roundAmnt.equals("1")){
+                               wholeNum = wholeNum + 1;
+                               info = (name + ": " + wholeNum + " " + unit);
+                           }
+                           else{
+                               info = (name + ": " + wholeNum + " and " + Round(rationalVal, unit) + " " + unit);
+                           }
+                       }
+                       else{
+                           info = (name + ": " + wholeNum + " and " + rationalVal + " " + unit);
+                       }
                    }
                 //end if fraction and whole have the same unit
                }
                //executes if fraction and whole have different units
                else {
-                   info = (name + ": " + wholeNum + " " + unit + " and " + rationalVal + " " + fracUnit);
+                   if(CalculatorScreen.getRound()){
+                       info = (name + ": " + wholeNum + " " + unit + " and " + Round(rationalVal, fracUnit) + " " + fracUnit);
+                   }
+                   else{
+                       info = (name + ": " + wholeNum + " " + unit + " and " + rationalVal + " " + fracUnit);
+                   }
                }
            }
            //executes if fraction equals zero
@@ -134,6 +153,7 @@ public class Ingredient{
        }
        //executes if the total amount is less than or equal to one
        else{
+           //Special Cases
            if(unit.equals("Cup") && fracAmnt.equals("3/8")){
                info = (name + ": 1/4 " + unit + " and 2 Tbsp");
            }
@@ -149,9 +169,18 @@ public class Ingredient{
            else if(unit.equals("Tbsp") && fracAmnt.equals("7/8")){
                info = (name + ": 2 and 5/8 Tsp");
            }
-           else {
-               info = (name + ": " + fracAmnt + " " + unit);
+           //Normal cases
+           else{
+               if(CalculatorScreen.getRound()){
+                   info = (name + ": " + Round(fracAmnt, unit) + " " + unit);
+               }
+               else{
+                   info = (name + ": " + fracAmnt + " " + unit);
+               }
            }
+           /*else {
+               info = (name + ": " + fracAmnt + " " + unit);
+           }*/
        }
        return info;
    }
@@ -264,6 +293,73 @@ public class Ingredient{
             return num1;
         }
         return gcd(denom1, num1%denom1);
+    }
+
+    public String Round(String s, String u){
+       if (s.contains("/")){
+           return s;
+        }
+       Double toRound = Double.valueOf(s);
+       String unit = u;
+
+        if(unit == "Cup" && toRound > .875){
+            return "1";
+        }
+        else if(unit == "Cup" && toRound > .7083){
+            return "3/4";
+        }
+        else if(unit == "Cup" && toRound > .583){
+            return "2/3";
+        }
+        else if(unit == "Cup" && toRound > .4167){
+            return "1/2";
+        }
+        else if(unit == "Cup" && toRound > .2917){
+            return "1/3";
+        }
+        else if(unit == "Cup" && toRound > .125){
+            return "1/4";
+        }
+        else if(unit == "Cup"){
+            return "less than 1/4";
+        }
+        else if(unit == "Tbsp" && toRound > .75){
+            return "1";
+        }
+        else if(unit == "Tbsp" && toRound >.25){
+            return "1/2";
+        }
+        else if(unit == "Tsp" && toRound > .9375){
+            return "1";
+        }
+        else if(unit == "Tsp" && toRound > .8125){
+            return "7/8";
+        }
+        else if(unit == "Tsp" && toRound > .6875){
+            return "3/4";
+        }
+        else if(unit == "Tsp" && toRound > .5625){
+            return "5/8";
+        }
+        else if(unit == "Tsp" && toRound > .4375){
+            return "1/2";
+        }
+        else if(unit == "Tsp" && toRound > .3125){
+            return "3/8";
+        }
+        else if(unit == "Tsp" && toRound > .1875){
+            return "1/4";
+        }
+        else if(unit == "Tsp" && toRound > .0625){
+            return "1/8";
+        }
+        else if(unit == "Tsp" && toRound <= .0625){
+            return "less than 1/8";
+        }
+        else{
+            return s;
+        }
+
     }
 
 }

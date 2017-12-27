@@ -40,6 +40,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     private String save;
     private Character tempChar;
     private String tempString;
+    public static boolean round = true;
 
     @FXML Button btnUndo;
     @FXML ImageView imgInfo;
@@ -59,6 +60,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML TextField saveName;
     @FXML ChoiceBox amount;
     @FXML ChoiceBox unitChoices;
+    @FXML CheckBox rounding;
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
@@ -146,7 +148,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             }
             else if (amntSelection.equals("Other")){
                 dialog.setTitle("Custom amount");
-                dialog.setHeaderText("Use this to enter a custom amount. Only whole and decimal values are valid (ex: 1, .45, 1.45)");
+                dialog.setHeaderText("Use this to enter a custom amount. Only whole and decimal values are valid (ex: 4, .45, 4.45)\n\nWARNING: If you are entering cups or tablespoons greater than 1 with decimals,\nrounding could be too inaccurate for your recipe");
                 dialog.setContentText("Please enter an amount:");
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent()){
@@ -201,6 +203,20 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         }
     }
 
+    @FXML public void RoundingPressed(){
+        if (rounding.isSelected()){
+            round = true;
+        }
+        else{
+            round = false;
+        }
+        count = 0;
+        ingredientList.getItems().clear();
+        while(count < ingredientArray.size()){
+            ingredientList.getItems().add(ingredientArray.get(count).getInfo());
+            count = count + 1;
+        }
+    }
 
     @FXML public void ClearPressed(){
         ingredientList.getItems().clear();
@@ -450,6 +466,10 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         else {
             return;
         }
+    }
+
+    public static Boolean getRound(){
+        return round;
     }
 
 }
