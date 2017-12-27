@@ -117,6 +117,12 @@ public class Ingredient{
                    else if(rationalVal.equals("7/8") && unit.equals("Tbsp")){
                        info = (name + ": " + wholeNum + " " + unit + " and 2 and 5/8 Tsp");
                    }
+                   else if(unit.equals("Tbsp") && rationalVal.equals("2/3")){
+                       info = (name + ": " + wholeNum + " " + unit + " and 2 Tsp");
+                   }
+                   else if(unit.equals("Tbsp") && rationalVal.equals("3/4")){
+                       info = (name + ": " + wholeNum + " " + unit + " and 2 and 1/4 Tsp");
+                   }
                    //Non-special cases
                    else {
                        if(CalculatorScreen.getRound()){
@@ -168,6 +174,12 @@ public class Ingredient{
            }
            else if(unit.equals("Tbsp") && fracAmnt.equals("7/8")){
                info = (name + ": 2 and 5/8 Tsp");
+           }
+           else if(unit.equals("Tbsp") && fracAmnt.equals("2/3")){
+               info = (name + ": 2 Tsp");
+           }
+           else if(unit.equals("Tbsp") && fracAmnt.equals("3/4")){
+               info = (name + ": 2 and 1/4 Tsp");
            }
            //Normal cases
            else{
