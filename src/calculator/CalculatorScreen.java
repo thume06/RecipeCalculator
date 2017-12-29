@@ -148,7 +148,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             }
             else if (amntSelection.equals("Other")){
                 dialog.setTitle("Custom amount");
-                dialog.setHeaderText("Use this to enter a custom amount. Only whole and decimal values are valid (ex: 4, .45, 4.45)\n\nWARNING: If you are entering cups or tablespoons greater than 1 with decimals,\nrounding could be too inaccurate for your recipe");
+                dialog.setHeaderText("Use this to enter a custom amount. Only whole and decimal values are valid (ex: 4, .5, 4.5)\n\nWARNING: If you are entering cups or tablespoons greater than 1 with abnormal decimal amounts,\nrounding could be too inaccurate for your recipe.");
                 dialog.setContentText("Please enter an amount:");
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent()){

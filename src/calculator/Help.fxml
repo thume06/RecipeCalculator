@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,13 +8,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.HelpController">
    <children>
-      <Button fx:id="btnReturn" layoutX="123.0" layoutY="632.0" mnemonicParsing="false" onAction="#calcScreen" prefHeight="34.0" prefWidth="288.0" text="Return to Calculator">
+      <ImageView fx:id="background" fitHeight="680.0" fitWidth="534.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/background.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnReturn" layoutX="122.0" layoutY="640.0" mnemonicParsing="false" onAction="#calcScreen" prefHeight="34.0" prefWidth="288.0" text="Return to Calculator">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Label layoutX="157.0" layoutY="14.0" text="INFORMATION">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+      </Label>
+      <TextArea editable="false" layoutX="23.0" layoutY="51.0" prefHeight="581.0" prefWidth="485.0" text="Hello! I hope you find my program useful. My name is Tristan and I am currently&#10;studying computer science. I made this program in my spare time for my&#10;girlfriend who loves to cook. I am uploading this for anybody to use free of&#10;charge, but donations are greatly appreciated. If you have any suggestions or&#10;questions, email me at tristanjhume@gmail.com. Thank you!&#10;&#10;Instructions:&#10;&#10;Ingredient field: Enter the name of the ingredient you want to add to the recipe.&#10;&#10;Amount: Choose the amount of the ingredient. If it is not listed, choose &quot;other&quot;&#10;and enter the amount manually when you hit the &quot;Add Ingredient&quot; button. Tip:&#10;If you need to add something like like 1 &amp; 1/8 Tsp but don't know the decimal&#10;amount, try adding 1 Tsp and 1/8 Tsp separately to the recipe.&#10;&#10;Units: Choose the units that the ingredient is in. You can choose &quot;other&quot; if you&#10;want to add something such as &quot;package&quot; or &quot;oz.&quot; These will still be converted&#10;with the rest of your ingredients, but will not automatically change units.&#10;&#10;Once you have entered this information, press the add ingredient option to add&#10;it to the recipe. Repeat for all ingredients that you need to convert before doing&#10;conversions. Click  &quot;Remove Selected&quot; to remove a single ingredient from the&#10;recipe, or click &quot;Clear All Ingredients&quot; to delete the entire recipe.&#10;&#10;Conversions: Click on the conversion you would like to use on your recipe. All&#10;ingredients in the recipe will be converted. Rounding will round to the nearest&#10;easily measurable amount.&#10;&#10;Save Recipe: Enter the recipe name then click &quot;Save&quot; and choose where you&#10;want to save it. It will be saved as a .txt file.">
+         <font>
+            <Font size="13.0" />
+         </font></TextArea>
    </children>
 </AnchorPane>
