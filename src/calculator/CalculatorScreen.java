@@ -22,6 +22,8 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     ArrayList<Character> invalidChars = new ArrayList<>();
     ArrayList<String> invalidStrings = new ArrayList<>();
     ArrayList<Double> conversions = new ArrayList<>();
+    ArrayList<String> actions = new ArrayList<>();
+    ArrayList<Ingredient> removeArray = new ArrayList<Ingredient>();
 
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
@@ -170,7 +172,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             }
 
             //Code for if all fields have a valid value**********************************************************
-            ingredientList.getItems().clear();
 
             if(unit.equals("Other")){
                 dialog.setTitle("Custom unit");
@@ -193,7 +194,9 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                     return;
                 }
             }
+            ingredientList.getItems().clear();
             ingredientArray.add(new Ingredient(name, amnt, unit));
+            actions.add("item");
             while(count < ingredientArray.size()){
                 ingredientList.getItems().add(ingredientArray.get(count).getInfo());
                 count = count + 1;
@@ -219,9 +222,24 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void ClearPressed(){
+        confirm.setTitle("Clear Recipe");
+        confirm.setHeaderText(null);
+        confirm.setContentText("You can no longer undo actions after clearing the recipe");
+        confirm.setGraphic(null);
+
+        ButtonType buttonTypeOne = new ButtonType("Continue");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirm.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.get() == buttonTypeCancel){
+            return;
+        }
         ingredientList.getItems().clear();
         ingredientArray.clear();
         conversions.clear();
+        actions.clear();
     }
 
     @FXML public void QuarterPressed(){
@@ -233,6 +251,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             count = count + 1;
         }
         conversions.add(4.0);
+        actions.add("convert");
     }
 
     @FXML public void HalfPressed(){
@@ -244,6 +263,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             count = count + 1;
         }
         conversions.add(2.0);
+        actions.add("convert");
     }
 
     @FXML public void DoublePressed(){
@@ -255,6 +275,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             count = count + 1;
         }
         conversions.add(0.5);
+        actions.add("convert");
     }
 
     @FXML public void QuadPressed(){
@@ -266,6 +287,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             count = count + 1;
         }
         conversions.add(0.25);
+        actions.add("convert");
     }
 
     @FXML public void TriplePressed(){
@@ -277,6 +299,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             count = count + 1;
         }
         conversions.add(1.0/3.0);
+        actions.add("convert");
     }
 
     @FXML public void ThirdPressed(){
@@ -288,51 +311,86 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             count = count + 1;
         }
         conversions.add(3.0);
+        actions.add("convert");
     }
 
     @FXML public void Remove(){
+        if (ingredientArray.size() == 1){
+            confirm.setTitle("Last Item");
+            confirm.setHeaderText(null);
+            confirm.setContentText("You can no longer undo actions after removing the last item");
+            confirm.setGraphic(null);
+
+            ButtonType buttonTypeOne = new ButtonType("Continue");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            confirm.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = confirm.showAndWait();
+            if (result.get() == buttonTypeCancel){
+                return;
+            }
+        }
         selectionindex = ingredientList.getSelectionModel().getSelectedIndex();
         ingredientList.getItems().remove(selectionindex);
         ingredientList.getSelectionModel().select(selectionindex);
+        removeArray.add(ingredientArray.get(selectionindex));
         ingredientArray.remove(selectionindex);
         ingredientList.getSelectionModel().clearSelection();
-
+        actions.add("remove");
         if (ingredientArray.size() == 0){
             conversions.clear();
+            actions.clear();
         }
     }
 
     @FXML public void Undo(){
-        if(conversions.size() == 0){
+        if(actions.size() == 0){
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("No conversions to undo.");
+            alert.setContentText("No actions to undo.");
             alert.showAndWait();
             return;
         }
 
-        //We need to multiply by the value in the .equals, so 4.0 means call Quad method, 2.0 Double, etc.
-        if(conversions.get(conversions.size() - 1).equals(4.0)){
-            QuadPressed();
+        if(actions.get(actions.size() - 1).equals("convert")){
+            //We need to multiply by the value in the .equals, so 4.0 means call Quad method, 2.0 Double, etc.
+            if(conversions.get(conversions.size() - 1).equals(4.0)){
+                QuadPressed();
+            }
+            else if(conversions.get(conversions.size() - 1).equals(2.0)){
+                DoublePressed();
+            }
+            else if(conversions.get(conversions.size() - 1).equals(0.5)){
+                HalfPressed();
+            }
+            else if(conversions.get(conversions.size() - 1).equals(0.25)){
+                QuarterPressed();
+            }
+            else if(conversions.get(conversions.size() - 1).equals(1.0/3.0)){
+                ThirdPressed();
+            }
+            else if(conversions.get(conversions.size() - 1).equals(3.0)){
+                TriplePressed();
+            }
+            //This is done twice because we are adding to it by calling the button pressed methods.
+            conversions.remove(conversions.size()-1);
+            conversions.remove(conversions.size()-1);
+            actions.remove(actions.size() - 1);
+            actions.remove(actions.size() -1);
         }
-        else if(conversions.get(conversions.size() - 1).equals(2.0)){
-            DoublePressed();
+        else if(actions.get(actions.size() -1).equals("item")){
+            ingredientList.getItems().remove(ingredientArray.size() -1);
+            ingredientArray.remove(ingredientArray.size() - 1);
+            actions.remove(actions.size() - 1);
         }
-        else if(conversions.get(conversions.size() - 1).equals(0.5)){
-            HalfPressed();
+        else if(actions.get(actions.size() - 1).equals("remove")){
+            ingredientList.getItems().add(removeArray.get(removeArray.size() - 1).getInfo());
+            ingredientArray.add(removeArray.get(removeArray.size() - 1));
+            removeArray.remove(removeArray.size() -1);
+            actions.remove(actions.size() -1);
         }
-        else if(conversions.get(conversions.size() - 1).equals(0.25)){
-            QuarterPressed();
-        }
-        else if(conversions.get(conversions.size() - 1).equals(1.0/3.0)){
-            ThirdPressed();
-        }
-        else if(conversions.get(conversions.size() - 1).equals(3.0)){
-            TriplePressed();
-        }
-        //This is done twice because we are adding to it by calling the button pressed methods.
-        conversions.remove(conversions.size()-1);
-        conversions.remove(conversions.size()-1);
+
     }
 
     @FXML public void Help(){
