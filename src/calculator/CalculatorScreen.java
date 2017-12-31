@@ -24,6 +24,8 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     ArrayList<Double> conversions = new ArrayList<>();
     ArrayList<String> actions = new ArrayList<>();
     ArrayList<Ingredient> removeArray = new ArrayList<Ingredient>();
+    ArrayList<Ingredient> originalRecipe = new ArrayList<Ingredient>();
+    ArrayList<ArrayList<Ingredient>> undoList = new ArrayList<ArrayList<Ingredient>>();
 
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
@@ -42,6 +44,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     private String save;
     private Character tempChar;
     private String tempString;
+    private boolean original = true;
     public static boolean round = true;
 
     @FXML Button btnUndo;
@@ -57,6 +60,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML Button btnClear;
     @FXML Button btnThird;
     @FXML Button btnSave;
+    @FXML Button btnOriginal;
     @FXML ListView<String> ingredientList;
     @FXML TextField ingredientName;
     @FXML TextField saveName;
@@ -195,6 +199,9 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                 }
             }
             ingredientList.getItems().clear();
+            if(original){
+                originalRecipe.add(new Ingredient(name, amnt, unit));
+            }
             ingredientArray.add(new Ingredient(name, amnt, unit));
             actions.add("item");
             while(count < ingredientArray.size()){
@@ -236,10 +243,13 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if (result.get() == buttonTypeCancel){
             return;
         }
+        original = true;
+        originalRecipe.clear();
         ingredientList.getItems().clear();
         ingredientArray.clear();
         conversions.clear();
         actions.clear();
+        undoList.clear();
     }
 
     @FXML public void QuarterPressed(){
@@ -250,6 +260,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientList.getItems().add(ingredientArray.get(count).getInfo());
             count = count + 1;
         }
+        original = false;
         conversions.add(4.0);
         actions.add("convert");
     }
@@ -262,6 +273,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientList.getItems().add(ingredientArray.get(count).getInfo());
             count = count + 1;
         }
+        original = false;
         conversions.add(2.0);
         actions.add("convert");
     }
@@ -274,10 +286,10 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientList.getItems().add(ingredientArray.get(count).getInfo());
             count = count + 1;
         }
+        original = false;
         conversions.add(0.5);
         actions.add("convert");
     }
-
     @FXML public void QuadPressed(){
         ingredientList.getItems().clear();
         count = 0;
@@ -286,6 +298,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientList.getItems().add(ingredientArray.get(count).getInfo());
             count = count + 1;
         }
+        original = false;
         conversions.add(0.25);
         actions.add("convert");
     }
@@ -298,6 +311,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientList.getItems().add(ingredientArray.get(count).getInfo());
             count = count + 1;
         }
+        original = false;
         conversions.add(1.0/3.0);
         actions.add("convert");
     }
@@ -310,6 +324,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientList.getItems().add(ingredientArray.get(count).getInfo());
             count = count + 1;
         }
+        original = false;
         conversions.add(3.0);
         actions.add("convert");
     }
@@ -341,6 +356,38 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if (ingredientArray.size() == 0){
             conversions.clear();
             actions.clear();
+            undoList.clear();
+            originalRecipe.clear();
+            original = true;
+        }
+    }
+
+    @FXML public void Original(){
+        if(original){
+            return;
+        }
+        else{
+            count = 0;
+            ArrayList<Ingredient> undo = new ArrayList<Ingredient>();
+            while(count < ingredientArray.size()){
+                undo.add(new Ingredient(ingredientArray.get(count).getName(), ingredientArray.get(count).getAmount(), ingredientArray.get(count).getUnit()));
+                count = count +1;
+            }
+            undoList.add(undo);
+            count = 0;
+            ingredientList.getItems().clear();
+            ingredientArray.clear();
+            while(count < originalRecipe.size()){
+                ingredientArray.add(new Ingredient(originalRecipe.get(count).getName(), originalRecipe.get(count).getAmount(), originalRecipe.get(count).getUnit()));
+                count = count + 1;
+            }
+            count = 0;
+            while(count < ingredientArray.size()){
+                ingredientList.getItems().add(ingredientArray.get(count).getInfo());
+                count = count + 1;
+            }
+            actions.add("original");
+            original = true;
         }
     }
 
@@ -348,7 +395,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if(actions.size() == 0){
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("No actions to undo.");
+            alert.setContentText("No actions to undo");
             alert.showAndWait();
             return;
         }
@@ -378,6 +425,17 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             conversions.remove(conversions.size()-1);
             actions.remove(actions.size() - 1);
             actions.remove(actions.size() -1);
+            count = 0;
+            boolean converted = false;
+            while(count < actions.size()){
+                if(actions.get(count).equals("convert")){
+                    converted = true;
+                }
+                count = count +1;
+            }
+            if(!converted){
+                original = true;
+            }
         }
         else if(actions.get(actions.size() -1).equals("item")){
             ingredientList.getItems().remove(ingredientArray.size() -1);
@@ -388,6 +446,18 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientList.getItems().add(removeArray.get(removeArray.size() - 1).getInfo());
             ingredientArray.add(removeArray.get(removeArray.size() - 1));
             removeArray.remove(removeArray.size() -1);
+            actions.remove(actions.size() -1);
+        }
+        else if(actions.get(actions.size() -1).equals("original")){
+            ingredientList.getItems().clear();
+            ingredientArray.clear();
+            count = 0;
+            while(count < undoList.get(undoList.size() - 1).size()){
+                ingredientArray.add(new Ingredient(undoList.get(undoList.size() -1).get(count).getName(), undoList.get(undoList.size() -1).get(count).getAmount(), undoList.get(undoList.size() -1).get(count).getUnit()));
+                ingredientList.getItems().add(ingredientArray.get(count).getInfo());
+                count = count + 1;
+            }
+            original = false;
             actions.remove(actions.size() -1);
         }
 

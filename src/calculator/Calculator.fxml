@@ -41,7 +41,8 @@
       <Button fx:id="btnDouble" layoutX="35.0" layoutY="408.0" mnemonicParsing="false" onAction="#DoublePressed" prefHeight="25.0" prefWidth="45.0" text="2x" />
       <Button fx:id="btnTriple" layoutX="88.0" layoutY="408.0" mnemonicParsing="false" onAction="#TriplePressed" prefHeight="25.0" prefWidth="45.0" text="3x" />
       <Button fx:id="btnQuad" layoutX="141.0" layoutY="408.0" mnemonicParsing="false" onAction="#QuadPressed" prefHeight="25.0" prefWidth="45.0" text="4x" />
-      <Button fx:id="btnUndo" layoutX="36.0" layoutY="439.0" mnemonicParsing="false" onAction="#Undo" prefHeight="25.0" prefWidth="152.0" text="Undo Conversion" />
+      <Button fx:id="btnUndo" layoutX="36.0" layoutY="439.0" mnemonicParsing="false" onAction="#Undo" prefHeight="25.0" prefWidth="71.0" text="Undo" />
+      <Button fx:id="btnOriginal" layoutX="116.0" layoutY="439.0" mnemonicParsing="false" onAction="#Original" prefHeight="25.0" prefWidth="69.0" text="Original" />
       <CheckBox fx:id="rounding" layoutX="49.0" layoutY="472.0" mnemonicParsing="false" onAction="#RoundingPressed" selected="true" text="Enable Rounding" />
       <Label layoutX="62.0" layoutY="56.0" text="Ingredient:">
          <font>
