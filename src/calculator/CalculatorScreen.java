@@ -379,10 +379,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             ingredientArray.clear();
             while(count < originalRecipe.size()){
                 ingredientArray.add(new Ingredient(originalRecipe.get(count).getName(), originalRecipe.get(count).getAmount(), originalRecipe.get(count).getUnit()));
-                count = count + 1;
-            }
-            count = 0;
-            while(count < ingredientArray.size()){
                 ingredientList.getItems().add(ingredientArray.get(count).getInfo());
                 count = count + 1;
             }
@@ -458,6 +454,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                 count = count + 1;
             }
             original = false;
+            undoList.remove(undoList.size() -1);
             actions.remove(actions.size() -1);
         }
 
