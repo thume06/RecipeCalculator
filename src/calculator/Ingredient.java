@@ -192,7 +192,7 @@ public class Ingredient{
                info = (name + ": " + fracAmnt + " " + unit);
            }*/
        }
-       if(amount > 100){
+       if(amount > 500){
            info = "TOO LARGE!";
        }
        return info;
