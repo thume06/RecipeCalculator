@@ -62,7 +62,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML Button btnSave;
     @FXML Button btnOriginal;
     @FXML Button btnMetric;
-    @FXML static ListView<String> ingredientList;
+    @FXML ListView<String> ingredientList;
     @FXML TextField ingredientName;
     @FXML TextField saveName;
     @FXML ChoiceBox amount;
@@ -600,6 +600,20 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
     public static Boolean getRound(){
         return round;
+    }
+
+    //Method to check if anything needs to be added from metric converter
+    @FXML public void MetricCheck(){
+        System.out.println("Metric check!");
+        count = 0;
+        if(MetricController.getToAdd()){
+            while(count < MetricController.addList.size()){
+                ingredientArray.add(new Ingredient(MetricController.addList.get(count).getName(),MetricController.addList.get(count).getAmount(),  MetricController.addList.get(count).getUnit()));
+                ingredientList.getItems().add(MetricController.addList.get(count).getInfo());
+                count = count +1;
+            }
+            MetricController.setToAdd(false);
+        }
     }
 
 }

@@ -13,9 +13,10 @@ public class MetricController implements Initializable, ControlledScreen {
     private ScreensController myController;
     private Main mainClass;
     private int count = 0;
+    private static boolean toAdd = false;
 
     ArrayList<MetricIngredient> metricArray = new ArrayList<MetricIngredient>();
-    ArrayList<Ingredient> addList = new ArrayList<Ingredient>();
+    static ArrayList<Ingredient> addList = new ArrayList<Ingredient>();
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
     TextInputDialog dialog = new TextInputDialog();
@@ -167,5 +168,13 @@ public class MetricController implements Initializable, ControlledScreen {
 
         //WHEN THEY HIT ADD
         addList.add(new Ingredient(metricArray.get(selectionIndex).getName(), metricArray.get(selectionIndex).getStdAmnt(), metricArray.get(selectionIndex).getStdUnit()));
+        toAdd = true;
+    }
+
+    public static boolean getToAdd(){
+        return toAdd;
+    }
+    public static void setToAdd(boolean a){
+        toAdd = a;
     }
 }
