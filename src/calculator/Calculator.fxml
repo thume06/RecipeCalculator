@@ -75,9 +75,9 @@
          </font>
       </Label>
       <Label layoutX="68.0" layoutY="523.0" text="Recipe name:" />
-      <Button fx:id="btnMetric" layoutX="225.0" layoutY="608.0" mnemonicParsing="false" onAction="#Metric" prefHeight="52.0" prefWidth="279.0" text="Metric Converter">
+      <Button fx:id="btnMetric" layoutX="225.0" layoutY="617.0" mnemonicParsing="false" onAction="#Metric" prefHeight="35.0" prefWidth="279.0" text="Metric Converter">
          <font>
-            <Font size="17.0" />
+            <Font size="14.0" />
          </font>
       </Button>
       <Button fx:id="btnClear" layoutX="225.0" layoutY="569.0" mnemonicParsing="false" onAction="#ClearPressed" prefHeight="30.0" prefWidth="279.0" text="Clear All Ingredients">

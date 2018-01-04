@@ -62,7 +62,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML Button btnSave;
     @FXML Button btnOriginal;
     @FXML Button btnMetric;
-    @FXML ListView<String> ingredientList;
+    @FXML static ListView<String> ingredientList;
     @FXML TextField ingredientName;
     @FXML TextField saveName;
     @FXML ChoiceBox amount;
@@ -71,6 +71,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
+        System.out.println("Initialize test");
         unitChoices.setItems(FXCollections.observableArrayList(
                 "Cup", "Tbsp", "Tsp", "Other"));
         unitChoices.setValue("Cup");

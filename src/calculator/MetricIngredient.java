@@ -43,8 +43,18 @@ public class MetricIngredient {
             stdUnit = "Tsp";
             stdAmount = oz*6;
         }
-        CalculatorScreen.ingredientArray.add(new Ingredient(name, stdAmount, stdUnit));
+    }
 
+    public String getName(){
+        return name;
+    }
+
+    public String getStdUnit(){
+        return stdUnit;
+    }
+
+    public Double getStdAmnt(){
+        return stdAmount;
     }
 
 }

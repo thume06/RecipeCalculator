@@ -12,10 +12,12 @@ import java.util.ArrayList;
 public class MetricController implements Initializable, ControlledScreen {
     private ScreensController myController;
     private Main mainClass;
-    private int count;
+    private int count = 0;
 
     ArrayList<MetricIngredient> metricArray = new ArrayList<MetricIngredient>();
+    ArrayList<Ingredient> addList = new ArrayList<Ingredient>();
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
     TextInputDialog dialog = new TextInputDialog();
 
     @FXML Button btnReturn;
@@ -26,6 +28,7 @@ public class MetricController implements Initializable, ControlledScreen {
     @FXML ChoiceBox stdAmount;
     @FXML ChoiceBox stdUnits;
     @FXML TextField metricAmount;
+    @FXML TextField metricAmount2;
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
@@ -124,10 +127,45 @@ public class MetricController implements Initializable, ControlledScreen {
     }
 
     @FXML public void Remove(){
-        int selectionindex = convertOptions.getSelectionModel().getSelectedIndex();
-        convertOptions.getItems().remove(selectionindex);
-        convertOptions.getSelectionModel().select(selectionindex);
-        metricArray.remove(selectionindex);
+        int selectionIndex = convertOptions.getSelectionModel().getSelectedIndex();
+        convertOptions.getItems().remove(selectionIndex);
+        convertOptions.getSelectionModel().select(selectionIndex);
+        metricArray.remove(selectionIndex);
         convertOptions.getSelectionModel().clearSelection();
+    }
+
+    @FXML public void Convert(){
+        double grams;
+        try{
+            Double.parseDouble(metricAmount2.getText());
+            grams = Double.valueOf(metricAmount2.getText());
+        }
+        catch(NumberFormatException e){
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid decimal or whole number value in metric amount field");
+            alert.showAndWait();
+            return;
+        }
+        int selectionIndex = convertOptions.getSelectionModel().getSelectedIndex();
+        metricArray.get(selectionIndex).GramstoStd(grams);
+
+        confirm.setTitle("Conversion");
+        confirm.setHeaderText(null);
+        confirm.setContentText("The standard amount of " + grams + " grams for " + metricArray.get(selectionIndex).getName() + " is about " + metricArray.get(selectionIndex).getStdAmnt() + " " + metricArray.get(selectionIndex).getStdUnit() + "\n\nWould you like to add this to your recipe?");
+        confirm.setGraphic(null);
+
+        ButtonType buttonTypeOne = new ButtonType("Add");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirm.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.get() == buttonTypeCancel){
+            return;
+        }
+
+        //WHEN THEY HIT ADD
+        addList.add(new Ingredient(metricArray.get(selectionIndex).getName(), metricArray.get(selectionIndex).getStdAmnt(), metricArray.get(selectionIndex).getStdUnit()));
     }
 }
