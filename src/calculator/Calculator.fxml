@@ -75,11 +75,16 @@
          </font>
       </Label>
       <Label layoutX="68.0" layoutY="523.0" text="Recipe name:" />
-      <Button fx:id="btnClear" layoutX="289.0" layoutY="615.0" mnemonicParsing="false" onAction="#ClearPressed" prefHeight="39.0" prefWidth="150.0" text="Clear All Ingredients">
+      <Button fx:id="btnMetric" layoutX="225.0" layoutY="608.0" mnemonicParsing="false" onAction="#Metric" prefHeight="52.0" prefWidth="279.0" text="Metric Converter">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnClear" layoutX="225.0" layoutY="569.0" mnemonicParsing="false" onAction="#ClearPressed" prefHeight="30.0" prefWidth="279.0" text="Clear All Ingredients">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <ListView fx:id="ingredientList" layoutX="224.0" layoutY="69.0" prefHeight="529.0" prefWidth="279.0" />
+      <ListView fx:id="ingredientList" layoutX="224.0" layoutY="69.0" prefHeight="495.0" prefWidth="279.0" />
       <ImageView fx:id="imgInfo" fitHeight="39.0" fitWidth="45.0" layoutX="462.0" layoutY="19.0" onMouseEntered="#HelpHover" onMouseExited="#HelpExit" onMousePressed="#Help" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/info.png" />

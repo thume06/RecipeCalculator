@@ -3,15 +3,9 @@ package calculator;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert.*;
-import java.io.*;
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.lang.String;
-import javafx.stage.FileChooser;
 
 
 public class Main extends Application {
@@ -24,6 +18,8 @@ public class Main extends Application {
     public static String screen2File = "Donate.fxml";
     public static String screen3ID = "Help";
     public static String screen3File = "Help.fxml";
+    public static String screen4ID = "Metric";
+    public static String screen4File = "Metric.fxml";
 
     private Stage stage;
 
@@ -44,6 +40,7 @@ public class Main extends Application {
         mainContainer.loadScreen(Main.screen1ID, Main.screen1File);
         mainContainer.loadScreen(Main.screen2ID, Main.screen2File);
         mainContainer.loadScreen(Main.screen3ID, Main.screen3File);
+        mainContainer.loadScreen(Main.screen4ID, Main.screen4File);
 
         mainContainer.setScreen(Main.screen1ID);
 

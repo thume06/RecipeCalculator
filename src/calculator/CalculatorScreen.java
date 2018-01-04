@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CalculatorScreen implements Initializable, ControlledScreen {
-    ArrayList<Ingredient> ingredientArray = new ArrayList<Ingredient>();
+    static ArrayList<Ingredient> ingredientArray = new ArrayList<Ingredient>();
     ArrayList<Character> invalidChars = new ArrayList<>();
     ArrayList<String> invalidStrings = new ArrayList<>();
     ArrayList<Double> conversions = new ArrayList<>();
@@ -61,6 +61,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML Button btnThird;
     @FXML Button btnSave;
     @FXML Button btnOriginal;
+    @FXML Button btnMetric;
     @FXML ListView<String> ingredientList;
     @FXML TextField ingredientName;
     @FXML TextField saveName;
@@ -493,6 +494,9 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         imgDonate.setFitHeight(52);
         imgDonate.setLayoutX(45);
         imgDonate.setLayoutY(608);
+    }
+    @FXML public void Metric() {
+        myController.setScreen(Main.screen4ID);
     }
     @FXML public void Save(){
 

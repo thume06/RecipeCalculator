@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.MetricController">
+   <children>
+      <ImageView fitHeight="680.0" fitWidth="534.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/background.jpg" />
+         </image>
+      </ImageView>
+      <ListView fx:id="convertOptions" layoutX="240.0" layoutY="78.0" prefHeight="526.0" prefWidth="260.0" />
+      <Label layoutX="108.0" layoutY="25.0" text="METRIC CONVERTER">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="196.0" text="Standard Units:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="130.0" text="Standard Amount:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="72.0" layoutY="68.0" text="Ingredient:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="ingredientName" layoutX="45.0" layoutY="102.0" prefHeight="25.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="stdAmount" layoutX="45.0" layoutY="164.0" prefHeight="25.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="stdUnits" layoutX="46.0" layoutY="230.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="metricAmount" layoutX="45.0" layoutY="298.0" prefHeight="25.0" prefWidth="150.0" />
+      <Button fx:id="btnAdd" layoutX="45.0" layoutY="332.0" mnemonicParsing="false" onAction="#AddPressed" prefHeight="30.0" prefWidth="150.0" text="Add Ingredient">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnRemove" layoutX="45.0" layoutY="377.0" mnemonicParsing="false" onAction="#Remove" prefHeight="30.0" prefWidth="150.0" text="Remove Selected">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="17.0" layoutY="264.0" text="Metric Equivalent (Grams):">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnReturn" layoutX="136.0" layoutY="638.0" mnemonicParsing="false" onAction="#Calculator" prefHeight="35.0" prefWidth="209.0" text="Recipe Calculator" />
+   </children>
+</AnchorPane>
