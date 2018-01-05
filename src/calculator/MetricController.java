@@ -5,15 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.ArrayList;
+import java.util.*;
+import java.io.*;
 
 public class MetricController implements Initializable, ControlledScreen {
     private ScreensController myController;
     private Main mainClass;
     private int count = 0;
     private static boolean toAdd = false;
+    private boolean unloaded = true;
 
     ArrayList<MetricIngredient> metricArray = new ArrayList<MetricIngredient>();
     static ArrayList<Ingredient> addList = new ArrayList<Ingredient>();
@@ -166,9 +166,66 @@ public class MetricController implements Initializable, ControlledScreen {
             return;
         }
 
-        //WHEN THEY HIT ADD
         addList.add(new Ingredient(metricArray.get(selectionIndex).getName(), metricArray.get(selectionIndex).getStdAmnt(), metricArray.get(selectionIndex).getStdUnit()));
         toAdd = true;
+    }
+
+    @FXML public void Load(){
+        if(unloaded){
+            //write file
+            try{
+                System.out.println("Attempting to write file...");
+                FileWriter fileWrite = new FileWriter("conversions.txt");
+                System.out.println("File path created");
+                BufferedWriter write = new BufferedWriter(fileWrite);
+                write.write("All Purpose Flour,1.0,Cup,125");
+                write.newLine();
+                write.write("Baking Powder,1.0,Cup,213");
+                write.close();
+            }
+            catch(IOException eo){
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to load existing metric conversions.");
+                alert.showAndWait();
+                unloaded = false;
+                return;
+            }
+            System.out.println("Successfully wrote file");
+            //read file
+            try{
+                System.out.println("Trying to find file...");
+                Scanner read = new Scanner (new File("conversions.txt"));
+                System.out.println("File found!");
+                read.useDelimiter(",|\\n");
+                String name, sa, su, ma;
+
+                int writeCount = 0;
+                while(read.hasNext()){
+                    name = read.next();
+                    System.out.println(name);
+                    sa = read.next();
+                    System.out.println(sa);
+                    su = read.next();
+                    System.out.println(su);
+                    ma = read.next();
+                    System.out.println(ma);
+                    metricArray.add(new MetricIngredient(name, Double.valueOf(sa), su, Double.valueOf(ma)));
+                    convertOptions.getItems().add(name + " (" + sa + " " +su + " = " + ma + " grams)");
+                    writeCount = writeCount + 1;
+                }
+                read.close();
+            }
+            catch(FileNotFoundException ex){
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to load existing metric conversions.");
+                alert.showAndWait();
+                unloaded = false;
+                return;
+            }
+            unloaded = false;
+        }
     }
 
     public static boolean getToAdd(){

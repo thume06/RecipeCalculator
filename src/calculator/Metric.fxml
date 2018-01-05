@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.MetricController">
+<AnchorPane onMouseEntered="#Load" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.MetricController">
    <children>
       <ImageView fitHeight="680.0" fitWidth="534.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -59,13 +59,13 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <ListView fx:id="convertOptions" layoutX="240.0" layoutY="78.0" prefHeight="526.0" prefWidth="260.0" />
+      <ListView fx:id="convertOptions" layoutX="241.0" layoutY="77.0" prefHeight="526.0" prefWidth="267.0" />
       <Label layoutX="17.0" layoutY="264.0" text="Metric Equivalent (Grams):">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="30.0" layoutY="424.0" text="Selection Amount (Grams):">
+      <Label layoutX="16.0" layoutY="425.0" text="Selection Amount (Grams):">
          <font>
             <Font size="18.0" />
          </font>

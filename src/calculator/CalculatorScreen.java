@@ -71,7 +71,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
-        System.out.println("Initialize test");
         unitChoices.setItems(FXCollections.observableArrayList(
                 "Cup", "Tbsp", "Tsp", "Other"));
         unitChoices.setValue("Cup");
@@ -604,7 +603,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
     //Method to check if anything needs to be added from metric converter
     @FXML public void MetricCheck(){
-        System.out.println("Metric check!");
         count = 0;
         if(MetricController.getToAdd()){
             while(count < MetricController.addList.size()){
