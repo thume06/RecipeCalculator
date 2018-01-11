@@ -8,24 +8,25 @@ public class MetricIngredient {
     private String stdUnit;
     private double rate;
 
-    public MetricIngredient(String n, double sa, String su, double ma) {
+    public MetricIngredient(String n, double sa, String su, Double ma) {
         name = n;
         stdAmount = sa;
         stdUnit = su;
         metricAmount = ma;
-        double initAmount = sa;
+        Double tempStd = 0.0;
+
 
         if(stdUnit.equals("Cup")){
-            stdAmount = stdAmount * 8;
+            tempStd = stdAmount * 8;
         }
         else if(stdUnit.equals("Tbsp")){
-            stdAmount = stdAmount * 0.5;
+            tempStd = stdAmount * 0.5;
         }
         else if(stdUnit.equals("Tsp")){
-            stdAmount = stdAmount * (1/6);
+            tempStd = stdAmount * (1/6);
         }
         //Std amount now in fl oz
-        rate = (metricAmount/stdAmount);
+        rate = (metricAmount/tempStd);
     }
 
     public void GramstoStd(double g){
@@ -43,6 +44,10 @@ public class MetricIngredient {
             stdUnit = "Tsp";
             stdAmount = oz*6;
         }
+    }
+
+    public String getTextInfo(){
+        return (name + "," + stdAmount + "," + stdUnit + "," + String.valueOf(metricAmount).substring(0, String.valueOf(metricAmount).length() - 2));
     }
 
     public String getName(){

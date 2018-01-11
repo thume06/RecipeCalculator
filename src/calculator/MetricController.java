@@ -33,7 +33,6 @@ public class MetricController implements Initializable, ControlledScreen {
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
-        MetricIngredient apflour = new MetricIngredient("flour", 1, "Cup", 125);
 
         stdUnits.setItems(FXCollections.observableArrayList(
                 "Cup", "Tbsp", "Tsp", "Other"));
@@ -128,11 +127,49 @@ public class MetricController implements Initializable, ControlledScreen {
     }
 
     @FXML public void Remove(){
+        String removeFile;
         int selectionIndex = convertOptions.getSelectionModel().getSelectedIndex();
         convertOptions.getItems().remove(selectionIndex);
         convertOptions.getSelectionModel().select(selectionIndex);
-        metricArray.remove(selectionIndex);
+        String toRemove = metricArray.get(selectionIndex).getTextInfo();
+        System.out.println("To remove: " + toRemove);
         convertOptions.getSelectionModel().clearSelection();
+
+        //Remove from the saved list
+        try {
+            File original = new File("conversions.txt");
+            File tempFile = new File("tmpconversions.txt");
+
+            Scanner read = new Scanner (new File("conversions.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+
+            read.useDelimiter(",|\\n");
+            String name, sa, su, ma;
+            //Read from the original file and write to the new
+            //unless content matches data to be removed.
+            while (read.hasNext()){
+                name = read.next();
+                sa = read.next();
+                su = read.next();
+                ma = read.next();
+                removeFile = (name + "," + sa + "," + su +"," + ma);
+                if(!removeFile.equals(toRemove)){
+                    System.out.println("Not removing: " + removeFile);
+                    bw.write(removeFile);
+                }
+            }
+            bw.close();
+            read.close();
+
+            original.delete();
+            tempFile.renameTo(new File("conversions.txt"));
+        }
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML public void Convert(){
@@ -172,26 +209,6 @@ public class MetricController implements Initializable, ControlledScreen {
 
     @FXML public void Load(){
         if(unloaded){
-            //write file
-            try{
-                System.out.println("Attempting to write file...");
-                FileWriter fileWrite = new FileWriter("conversions.txt");
-                System.out.println("File path created");
-                BufferedWriter write = new BufferedWriter(fileWrite);
-                write.write("All Purpose Flour,1.0,Cup,125");
-                write.newLine();
-                write.write("Baking Powder,1.0,Cup,213");
-                write.close();
-            }
-            catch(IOException eo){
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Failed to load existing metric conversions.");
-                alert.showAndWait();
-                unloaded = false;
-                return;
-            }
-            System.out.println("Successfully wrote file");
             //read file
             try{
                 System.out.println("Trying to find file...");
