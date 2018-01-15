@@ -139,6 +139,11 @@ public class MetricController implements Initializable, ControlledScreen {
         try {
             File original = new File("conversions.txt");
             File tempFile = new File("tmpconversions.txt");
+            int writeCount = 0;
+            boolean nameCheck;
+            boolean saCheck;
+            boolean suCheck;
+            boolean maCheck;
 
             Scanner read = new Scanner (new File("conversions.txt"));
             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
@@ -149,18 +154,29 @@ public class MetricController implements Initializable, ControlledScreen {
             //unless content matches data to be removed.
             while (read.hasNext()){
                 name = read.next();
+                nameCheck = !name.equals(metricArray.get(selectionIndex).getName());
                 sa = read.next();
+                saCheck = !String.valueOf(Double.valueOf(sa)).equals(String.valueOf(metricArray.get(selectionIndex).getStdAmnt()));
                 su = read.next();
+                suCheck = !su.equals(metricArray.get(selectionIndex).getStdUnit());
                 ma = read.next();
-                removeFile = (name + "," + sa + "," + su +"," + ma);
-                if(!removeFile.equals(toRemove)){
-                    System.out.println("Not removing: " + removeFile);
-                    bw.write(removeFile);
+                maCheck = !String.valueOf(Double.valueOf(ma)).equals(String.valueOf(metricArray.get(selectionIndex).getMetricAmnt()));
+                if(nameCheck || saCheck || suCheck || maCheck){
+                    //If this is not what you wanted to remove
+                    removeFile = (name + "," + sa + "," + su +"," + ma);
+                    if(!removeFile.equals(toRemove)) {
+                        System.out.println(removeFile);
+                        if (writeCount > 0) {
+                            bw.newLine();
+                        }
+                        bw.write(removeFile);
+                    }
+                    writeCount = writeCount + 1;
                 }
             }
             bw.close();
             read.close();
-
+            metricArray.remove(selectionIndex);
             original.delete();
             tempFile.renameTo(new File("conversions.txt"));
         }
@@ -211,22 +227,16 @@ public class MetricController implements Initializable, ControlledScreen {
         if(unloaded){
             //read file
             try{
-                System.out.println("Trying to find file...");
                 Scanner read = new Scanner (new File("conversions.txt"));
-                System.out.println("File found!");
                 read.useDelimiter(",|\\n");
                 String name, sa, su, ma;
 
                 int writeCount = 0;
                 while(read.hasNext()){
                     name = read.next();
-                    System.out.println(name);
                     sa = read.next();
-                    System.out.println(sa);
                     su = read.next();
-                    System.out.println(su);
                     ma = read.next();
-                    System.out.println(ma);
                     metricArray.add(new MetricIngredient(name, Double.valueOf(sa), su, Double.valueOf(ma)));
                     convertOptions.getItems().add(name + " (" + sa + " " +su + " = " + ma + " grams)");
                     writeCount = writeCount + 1;

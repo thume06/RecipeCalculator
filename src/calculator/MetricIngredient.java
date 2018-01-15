@@ -62,4 +62,8 @@ public class MetricIngredient {
         return stdAmount;
     }
 
+    public Double getMetricAmnt(){
+        return metricAmount;
+    }
+
 }
