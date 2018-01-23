@@ -499,7 +499,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         myController.setScreen(Main.screen4ID);
     }
     @FXML public void Save(){
-
         //Ensuring filename is valid--------------------------------------------
         String originalName = saveName.getText();
         save = saveName.getText().toLowerCase();
@@ -608,9 +607,14 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             while(count < MetricController.addList.size()){
                 ingredientArray.add(new Ingredient(MetricController.addList.get(count).getName(),MetricController.addList.get(count).getAmount(),  MetricController.addList.get(count).getUnit()));
                 ingredientList.getItems().add(MetricController.addList.get(count).getInfo());
+                actions.add("item");
+                if(original){
+                    originalRecipe.add(new Ingredient(MetricController.addList.get(count).getName(),MetricController.addList.get(count).getAmount(),  MetricController.addList.get(count).getUnit()));
+                }
                 count = count +1;
             }
             MetricController.setToAdd(false);
+            MetricController.addList.clear();
         }
     }
 

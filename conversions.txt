@@ -1,2 +1,1 @@
-All Purpose Flour,1.0,Cup,125
-Baking Powder,1.0,Cup,213
+All Purpose Flour,1.0,Cup,125,Baking Powder,1.0,Cup,213

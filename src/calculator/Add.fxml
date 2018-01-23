@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="229.0" maxWidth="300.0" minHeight="200.0" minWidth="300.0" prefHeight="229.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.AddController">
+   <children>
+      <Label layoutX="64.0" layoutY="14.0" text="Custom Ingredient">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button layoutX="96.0" layoutY="185.0" mnemonicParsing="false" onAction="#AddPressed" prefHeight="25.0" prefWidth="107.0" text="Add Ingredient" />
+      <TextField fx:id="ingredientName" layoutX="50.0" layoutY="53.0" prefHeight="25.0" prefWidth="199.0" promptText="Name of Ingredient" />
+      <ChoiceBox fx:id="stdUnits" layoutX="50.0" layoutY="86.0" prefHeight="25.0" prefWidth="199.0" />
+      <TextField fx:id="metricAmount" layoutX="52.0" layoutY="152.0" prefHeight="25.0" prefWidth="199.0" promptText="Metric Equivalent in Grams" />
+      <ChoiceBox fx:id="stdAmount" layoutX="52.0" layoutY="119.0" prefHeight="25.0" prefWidth="199.0" />
+   </children>
+</AnchorPane>
