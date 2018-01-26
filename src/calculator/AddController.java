@@ -40,13 +40,20 @@ public class AddController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
         stdUnits.setItems(FXCollections.observableArrayList(
-                "Standard Unit", "Cup", "Tbsp", "Tsp", "Other"));
+                "Standard Unit", "Cup", "Tbsp", "Tsp"));
         stdUnits.setValue("Standard Unit");
         stdAmount.setItems(FXCollections.observableArrayList(
                 "Standard Amount", "1", "1/2", "1/3", "2/3", "1/4", "3/4", "1/8", "Other"));
         stdAmount.setValue("Standard Amount");
     }
-
+    @FXML public void Cancel(){
+        ingredientName.clear();
+        metricAmount.clear();
+        stdAmount.setValue("Standard Amount");
+        stdUnits.setValue("Standard Unit");
+        mainClass.resize(534, 710);
+        myController.setScreen(Main.screen4ID);
+    }
     @FXML public void AddPressed(){
         if(ingredientName.getText().equals("")){
             alert.setTitle("Information Dialog");

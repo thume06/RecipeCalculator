@@ -30,8 +30,11 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <ChoiceBox fx:id="stdUnits" layoutX="45.0" layoutY="260.0" prefHeight="25.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="stdAmount" layoutX="45.0" layoutY="328.0" prefWidth="150.0" />
+      <Button layoutX="45.0" layoutY="365.0" mnemonicParsing="false" onAction="#ToMetric" prefHeight="25.0" prefWidth="150.0" text="Convert to Metric" />
       <TextField fx:id="metricAmount2" layoutX="45.0" layoutY="457.0" prefHeight="25.0" prefWidth="150.0" />
-      <Button fx:id="btnRemove1" layoutX="46.0" layoutY="493.0" mnemonicParsing="false" onAction="#Convert" prefHeight="30.0" prefWidth="150.0" text="Convert to Standard">
+      <Button layoutX="46.0" layoutY="493.0" mnemonicParsing="false" onAction="#Convert" prefHeight="30.0" prefWidth="150.0" text="Convert to Standard">
          <font>
             <Font size="14.0" />
          </font>
@@ -40,16 +43,26 @@
          <font>
             <Font size="14.0" />
          </font></Button>
+      <Button fx:id="btnReload" layoutX="300.0" layoutY="577.0" mnemonicParsing="false" onAction="#Reload" prefHeight="30.0" prefWidth="150.0" text="Reload List">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
       <ListView fx:id="convertOptions" layoutX="241.0" layoutY="77.0" prefHeight="491.0" prefWidth="267.0" />
       <Label layoutX="16.0" layoutY="425.0" text="Selection Amount (Grams):">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnReload" layoutX="300.0" layoutY="577.0" mnemonicParsing="false" onAction="#Reload" prefHeight="30.0" prefWidth="150.0" text="Reload List">
+      <Label layoutX="63.0" layoutY="233.0" text="Selection Unit:">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
-      </Button>
+      </Label>
+      <Label layoutX="50.0" layoutY="296.0" text="Selection Amount:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

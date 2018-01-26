@@ -1,5 +1,6 @@
 package calculator;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,7 +11,6 @@ import java.io.*;
 public class MetricController implements Initializable, ControlledScreen {
     private ScreensController myController;
     private Main mainClass;
-    private int count = 0;
     private static boolean toAdd = false;
     private boolean unloaded = true;
 
@@ -26,10 +26,17 @@ public class MetricController implements Initializable, ControlledScreen {
     @FXML Button btnRemove;
     @FXML TextField metricAmount2;
     @FXML Button btnReload;
+    @FXML ChoiceBox stdUnits;
+    @FXML ChoiceBox stdAmount;
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
-
+        stdUnits.setItems(FXCollections.observableArrayList(
+                "Cup", "Tbsp", "Tsp"));
+        stdUnits.setValue("Cup");
+        stdAmount.setItems(FXCollections.observableArrayList(
+                "1", "1/2", "1/3", "2/3", "1/4", "3/4", "1/8", "Other"));
+        stdAmount.setValue("1");
     }
 
     public void setScreenParent(ScreensController screenParent){
@@ -105,6 +112,73 @@ public class MetricController implements Initializable, ControlledScreen {
         catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @FXML public void ToMetric(){
+        String amntSelection = String.valueOf(stdAmount.getSelectionModel().getSelectedItem());
+        Double standardAmount = 0.0;
+        if(amntSelection.equals("1")){
+            standardAmount = 1.0;
+        }
+        else if (amntSelection.equals("1/2")){
+            standardAmount = .5;
+        }
+        else if (amntSelection.equals("1/3")){
+            standardAmount = 1.0/3.0;
+        }
+        else if (amntSelection.equals("2/3")){
+            standardAmount = 2.0/3.0;
+        }
+        else if (amntSelection.equals("1/4")){
+            standardAmount = .25;
+        }
+        else if (amntSelection.equals("3/4")){
+            standardAmount = .75;
+        }
+        else if (amntSelection.equals("1/8")){
+            standardAmount = .125;
+        }
+        else if (amntSelection.equals("Other")) {
+            dialog.setTitle("Custom amount");
+            dialog.setHeaderText("Use this to enter a custom amount. Only whole and decimal values are valid (ex: 4, .5, 4.5)\n\nWARNING: If you are entering cups or tablespoons greater than 1 with abnormal decimal amounts,\nrounding could be too inaccurate for your recipe.");
+            dialog.setContentText("Please enter an amount:");
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                try {
+                    Double.parseDouble(result.get());
+                    standardAmount = Double.valueOf(result.get());
+                } catch (NumberFormatException e) {
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Invalid decimal or whole number value");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+            else {
+                return;
+            }
+        }
+
+        String standardUnit = String.valueOf(stdUnits.getSelectionModel().getSelectedItem());
+
+        int selectionIndex = convertOptions.getSelectionModel().getSelectedIndex();
+        confirm.setTitle("Conversion");
+        confirm.setHeaderText(null);
+        confirm.setContentText("The metric amount of " + standardAmount + " " +  standardUnit + " for " + metricArray.get(selectionIndex).getName() + " is about " + metricArray.get(selectionIndex).StdtoGrams(standardUnit, standardAmount) + " grams.\n\nWould you like to add this to your recipe?");
+        confirm.setGraphic(null);
+
+        ButtonType buttonTypeOne = new ButtonType("Add");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirm.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.get() == buttonTypeCancel){
+            return;
+        }
+        addList.add(new Ingredient(metricArray.get(selectionIndex).getName(), metricArray.get(selectionIndex).StdtoGrams(standardUnit, standardAmount), "grams"));
+        toAdd = true;
     }
 
     @FXML public void Convert(){

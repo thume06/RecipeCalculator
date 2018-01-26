@@ -46,6 +46,20 @@ public class MetricIngredient {
         }
     }
 
+    public Double StdtoGrams(String u, double a){
+        Double amount = 0.0;
+        if(u.equals("Cup")){
+            amount = a * 8;
+        }
+        else if(u.equals("Tbsp")){
+            amount = a * 0.5;
+        }
+        else if(u.equals("Tsp")){
+            amount = a * (1/6);
+        }
+        return (amount * rate);
+    }
+
     public String getTextInfo(){
         return (name + "," + stdAmount + "," + stdUnit + "," + String.valueOf(metricAmount).substring(0, String.valueOf(metricAmount).length() - 2));
     }

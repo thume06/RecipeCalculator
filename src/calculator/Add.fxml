@@ -14,10 +14,11 @@
             <Font name="Britannic Bold" size="21.0" />
          </font>
       </Label>
-      <Button layoutX="96.0" layoutY="185.0" mnemonicParsing="false" onAction="#AddPressed" prefHeight="25.0" prefWidth="107.0" text="Add Ingredient" />
+      <Button layoutX="153.0" layoutY="185.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="25.0" prefWidth="98.0" text="Cancel" />
       <TextField fx:id="ingredientName" layoutX="50.0" layoutY="53.0" prefHeight="25.0" prefWidth="199.0" promptText="Name of Ingredient" />
       <ChoiceBox fx:id="stdUnits" layoutX="50.0" layoutY="86.0" prefHeight="25.0" prefWidth="199.0" />
       <TextField fx:id="metricAmount" layoutX="52.0" layoutY="152.0" prefHeight="25.0" prefWidth="199.0" promptText="Metric Equivalent in Grams" />
       <ChoiceBox fx:id="stdAmount" layoutX="52.0" layoutY="119.0" prefHeight="25.0" prefWidth="199.0" />
+      <Button layoutX="50.0" layoutY="185.0" mnemonicParsing="false" onAction="#AddPressed" prefHeight="25.0" prefWidth="98.0" text="Add Ingredient" />
    </children>
 </AnchorPane>

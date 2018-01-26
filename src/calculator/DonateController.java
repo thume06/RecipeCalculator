@@ -20,7 +20,7 @@ public class DonateController implements Initializable, ControlledScreen{
         mainClass = Main.getInstance();
         WebEngine testEngine = donateView.getEngine();
         testEngine.setJavaScriptEnabled(true);
-        testEngine.load("https://www.paypal.me/thume02/2");
+        testEngine.load("https://www.paypal.me/thume02");
     }
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
@@ -34,6 +34,6 @@ public class DonateController implements Initializable, ControlledScreen{
     @FXML public void donatePage(){
         WebEngine testEngine = donateView.getEngine();
         testEngine.setJavaScriptEnabled(true);
-        testEngine.load("https://www.paypal.me/thume02/2");
+        testEngine.load("https://www.paypal.me/thume02");
     }
 }
