@@ -48,7 +48,7 @@ public class MetricController implements Initializable, ControlledScreen {
     }
 
     @FXML public void Add(){
-        mainClass.resize(300, 250);
+        mainClass.resize(300, 265);
         myController.setScreen(Main.screen5ID);
     }
 
@@ -63,15 +63,15 @@ public class MetricController implements Initializable, ControlledScreen {
 
         //Remove from the saved list
         try {
-            File original = new File("conversions.txt");
-            File tempFile = new File("tmpconversions.txt");
+            File original = new File("conversions/conversions.txt");
+            File tempFile = new File("conversions/tmpconversions.txt");
             int writeCount = 0;
             boolean nameCheck;
             boolean saCheck;
             boolean suCheck;
             boolean maCheck;
 
-            Scanner read = new Scanner (new File("conversions.txt"));
+            Scanner read = new Scanner (new File("conversions/conversions.txt"));
             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
 
             read.useDelimiter(",|\\n");
@@ -104,7 +104,7 @@ public class MetricController implements Initializable, ControlledScreen {
             read.close();
             metricArray.remove(selectionIndex);
             original.delete();
-            tempFile.renameTo(new File("conversions.txt"));
+            tempFile.renameTo(new File("conversions/conversions.txt"));
         }
         catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -165,7 +165,7 @@ public class MetricController implements Initializable, ControlledScreen {
         int selectionIndex = convertOptions.getSelectionModel().getSelectedIndex();
         confirm.setTitle("Conversion");
         confirm.setHeaderText(null);
-        confirm.setContentText("The metric amount of " + standardAmount + " " +  standardUnit + " for " + metricArray.get(selectionIndex).getName() + " is about " + metricArray.get(selectionIndex).StdtoGrams(standardUnit, standardAmount) + " grams.\n\nWould you like to add this to your recipe?");
+        confirm.setContentText("The metric amount of " + standardAmount + " " +  standardUnit + " for " + metricArray.get(selectionIndex).getName() + " is " + metricArray.get(selectionIndex).StdtoGrams(standardUnit, standardAmount) + " grams.\n\nWould you like to add this to your recipe?");
         confirm.setGraphic(null);
 
         ButtonType buttonTypeOne = new ButtonType("Add");
@@ -220,7 +220,7 @@ public class MetricController implements Initializable, ControlledScreen {
         if(unloaded){
             //read file
             try{
-                Scanner read = new Scanner (new File("conversions.txt"));
+                Scanner read = new Scanner (new File("conversions/conversions.txt"));
                 read.useDelimiter(",|\\n");
                 String name, sa, su, ma;
 
@@ -270,8 +270,8 @@ public class MetricController implements Initializable, ControlledScreen {
             return;
         }
         try{
-            Scanner read = new Scanner (new File("conversionsOriginal.txt"));
-            File tempFile = new File("tempOriginal.txt");
+            Scanner read = new Scanner (new File("conversions/conversionsOriginal.txt"));
+            File tempFile = new File("conversions/tempOriginal.txt");
             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
             read.useDelimiter(",|\\n");
             String name, sa, su, ma;
@@ -293,9 +293,9 @@ public class MetricController implements Initializable, ControlledScreen {
             }
             bw.close();
             read.close();
-            File conversions = new File("conversions.txt");
+            File conversions = new File("conversions/conversions.txt");
             conversions.delete();
-            tempFile.renameTo(new File("conversions.txt"));
+            tempFile.renameTo(new File("conversions/conversions.txt"));
         }
         catch(FileNotFoundException ex){
             alert.setTitle("Error");
