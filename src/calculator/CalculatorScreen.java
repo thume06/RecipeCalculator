@@ -1,7 +1,6 @@
 package calculator;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -12,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -495,9 +493,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         imgDonate.setLayoutX(45);
         imgDonate.setLayoutY(608);
     }
-    @FXML public void Metric() {
-        myController.setScreen(Main.screen4ID);
-    }
     @FXML public void Save(){
         //Ensuring filename is valid--------------------------------------------
         String originalName = saveName.getText();
@@ -600,22 +595,5 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         return round;
     }
 
-    //Method to check if anything needs to be added from metric converter
-    @FXML public void MetricCheck(){
-        count = 0;
-        if(MetricController.getToAdd()){
-            while(count < MetricController.addList.size()){
-                ingredientArray.add(new Ingredient(MetricController.addList.get(count).getName(),MetricController.addList.get(count).getAmount(),  MetricController.addList.get(count).getUnit()));
-                ingredientList.getItems().add(MetricController.addList.get(count).getInfo());
-                actions.add("item");
-                if(original){
-                    originalRecipe.add(new Ingredient(MetricController.addList.get(count).getName(),MetricController.addList.get(count).getAmount(),  MetricController.addList.get(count).getUnit()));
-                }
-                count = count +1;
-            }
-            MetricController.setToAdd(false);
-            MetricController.addList.clear();
-        }
-    }
 
 }
