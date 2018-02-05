@@ -220,7 +220,8 @@ public class MetricController implements Initializable, ControlledScreen {
         if(unloaded){
             //read file
             try{
-                Scanner read = new Scanner (new File("conversions/conversions.txt"));
+                InputStream in = getClass().getClassLoader().getResourceAsStream("conversions/conversions.txt");
+                Scanner read = new Scanner(in);
                 read.useDelimiter(",|\\n");
                 String name, sa, su, ma;
 
@@ -236,7 +237,7 @@ public class MetricController implements Initializable, ControlledScreen {
                 }
                 read.close();
             }
-            catch(FileNotFoundException ex){
+            catch(NullPointerException ex){
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Failed to load existing metric conversions.");
