@@ -289,6 +289,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         conversions.add(0.5);
         actions.add("convert");
     }
+
     @FXML public void QuadPressed(){
         ingredientList.getItems().clear();
         count = 0;
@@ -388,6 +389,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
     @FXML public void Undo(){
         if(actions.size() == 0){
+            originalRecipe.clear();
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
             alert.setContentText("No actions to undo");
@@ -493,6 +495,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         imgDonate.setLayoutX(45);
         imgDonate.setLayoutY(608);
     }
+
     @FXML public void Save(){
         //Ensuring filename is valid--------------------------------------------
         String originalName = saveName.getText();
