@@ -14,8 +14,6 @@ public class Main extends Application {
 
     public static String screen1ID = "Calculator";
     public static String screen1File = "Calculator.fxml";
-    public static String screen2ID = "Donate";
-    public static String screen2File = "Donate.fxml";
     public static String screen3ID = "Help";
     public static String screen3File = "Help.fxml";
 
@@ -36,7 +34,6 @@ public class Main extends Application {
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screen1ID, Main.screen1File);
-        mainContainer.loadScreen(Main.screen2ID, Main.screen2File);
         mainContainer.loadScreen(Main.screen3ID, Main.screen3File);
 
         mainContainer.setScreen(Main.screen1ID);

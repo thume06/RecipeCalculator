@@ -1,5 +1,6 @@
 package calculator;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,10 +9,11 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -479,7 +481,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         imgInfo.setLayoutY(19);
     }
     @FXML public void Donate(){
-        myController.setScreen(Main.screen2ID);
+        openWebpage();
     }
     @FXML public void DonateHover(){
         imgDonate.setImage(new Image("images/donateOver.png"));
@@ -598,5 +600,11 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         return round;
     }
 
-
+    public static void openWebpage() {
+        try {
+            Desktop.getDesktop().browse(new URL("https://www.paypal.me/thume02").toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
