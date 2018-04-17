@@ -349,6 +349,9 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             }
         }
         selectionindex = ingredientList.getSelectionModel().getSelectedIndex();
+        if(original){
+            originalRecipe.remove(selectionindex);
+        }
         ingredientList.getItems().remove(selectionindex);
         ingredientList.getSelectionModel().select(selectionindex);
         removeArray.add(ingredientArray.get(selectionindex));
@@ -437,11 +440,17 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             }
         }
         else if(actions.get(actions.size() -1).equals("item")){
+            if(original){
+                originalRecipe.remove(originalRecipe.size() - 1);
+            }
             ingredientList.getItems().remove(ingredientArray.size() -1);
             ingredientArray.remove(ingredientArray.size() - 1);
             actions.remove(actions.size() - 1);
         }
         else if(actions.get(actions.size() - 1).equals("remove")){
+            if(!original){
+                originalRecipe.add(removeArray.get(removeArray.size() - 1));
+            }
             ingredientList.getItems().add(removeArray.get(removeArray.size() - 1).getInfo());
             ingredientArray.add(removeArray.get(removeArray.size() - 1));
             removeArray.remove(removeArray.size() -1);
