@@ -1,9 +1,7 @@
 package calculator;
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -29,8 +27,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
     TextInputDialog dialog = new TextInputDialog();
-    DirectoryChooser dchoose = new DirectoryChooser();
-    String selectedDirectory;
 
     private ScreensController myController;
     private Main mainClass;
@@ -48,6 +44,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML Button btnUndo;
     @FXML ImageView imgInfo;
     @FXML ImageView imgDonate;
+    @FXML ImageView imgBackground;
     @FXML Button btnRemove;
     @FXML Button btnQuarter;
     @FXML Button btnHalf;
@@ -58,7 +55,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML Button btnClear;
     @FXML Button btnThird;
     @FXML Button btnSave;
-    @FXML Button btnMetric;
     @FXML ListView<String> ingredientList;
     @FXML TextField ingredientName;
     @FXML TextField saveName;
@@ -68,6 +64,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
     public void initialize(URL url, ResourceBundle rb) {
         mainClass = Main.getInstance();
+        InitializeImages();
         unitChoices.setItems(FXCollections.observableArrayList(
                 "Cup", "Tbsp", "Tsp", "Other"));
         unitChoices.setValue("Cup");
@@ -75,39 +72,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                 "1", "1/2", "1/3", "2/3", "1/4", "3/4", "1/8", "Other"));
         amount.setValue("1");
 
-        invalidChars.add('.');
-        invalidChars.add('\\');
-        invalidChars.add('/');
-        invalidChars.add(':');
-        invalidChars.add('*');
-        invalidChars.add('?');
-        invalidChars.add('"');
-        invalidChars.add('<');
-        invalidChars.add('>');
-        invalidChars.add('|');
-        invalidStrings.add("aux");
-        invalidStrings.add("com1");
-        invalidStrings.add("com2");
-        invalidStrings.add("com3");
-        invalidStrings.add("com4");
-        invalidStrings.add("com5");
-        invalidStrings.add("com6");
-        invalidStrings.add("com7");
-        invalidStrings.add("com8");
-        invalidStrings.add("com9");
-        invalidStrings.add("con");
-        invalidStrings.add("lpt1");
-        invalidStrings.add("lpt2");
-        invalidStrings.add("lpt3");
-        invalidStrings.add("lpt4");
-        invalidStrings.add("lpt5");
-        invalidStrings.add("lpt6");
-        invalidStrings.add("lpt7");
-        invalidStrings.add("lpt8");
-        invalidStrings.add("lpt9");
-        invalidStrings.add("nul");
-        invalidStrings.add("prn");
-        invalidStrings.add("clock$");
     }
 
     public void setScreenParent(ScreensController screenParent){
@@ -456,77 +420,34 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             alert.showAndWait();
             return;
         }
-        count = 0;
-        while(count < invalidChars.size()){
-            tempChar = invalidChars.get(count);
-            if (save.contains(String.valueOf(tempChar))){
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid character: " + String.valueOf(tempChar));
-                alert.showAndWait();
-                return;
+
+        //Save begins after checks
+        try{
+            FileOutputStream fos= new FileOutputStream("savedRecipes.ser");
+            ObjectOutputStream oos= new ObjectOutputStream(fos);
+            ArrayList<Ingredient> tempIngredientArray = new ArrayList<Ingredient>();
+            count = 0;
+            while(count < ingredientArray.size()){
+                tempIngredientArray.add(new Ingredient(ingredientArray.get(count).getName(), ingredientArray.get(count).getAmount(), ingredientArray.get(count).getUnit()));
+                count++;
             }
-            count = count + 1;
+            Main.savedRecipes.add(new Recipe(originalName, tempIngredientArray));
+            oos.writeObject(Main.savedRecipes);
+            oos.close();
+            fos.close();
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Recipe saved.");
+            alert.showAndWait();
         }
-        count = 0;
-        while(count < invalidStrings.size()){
-            tempString = invalidStrings.get(count);
-            if (save.contains(tempString)){
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid text in filename: " + tempString);
-                alert.showAndWait();
-                return;
-            }
-            count = count + 1;
+        catch(IOException ioe){
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to save recipe.");
+            alert.showAndWait();
+            ioe.printStackTrace();
         }
-        //Code executes--------------------------------------------
 
-        confirm.setTitle("Save Recipe");
-        confirm.setHeaderText(null);
-        confirm.setContentText("Note: Saving a recipe to a directory that already has a file with the same name will overwrite it.");
-        confirm.setGraphic(null);
-
-        ButtonType buttonTypeOne = new ButtonType("Select Directory");
-        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        confirm.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
-
-        Optional<ButtonType> result = confirm.showAndWait();
-        if (result.get() == buttonTypeOne){
-            selectedDirectory = String.valueOf(dchoose.showDialog(null));
-
-            if (selectedDirectory != ""){
-                selectedDirectory = selectedDirectory + "\\" + originalName + ".txt";
-                try{
-                    FileWriter fileWriter = new FileWriter(selectedDirectory);
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-                    int endCount = 0;
-                    while(endCount < ingredientArray.size()){
-                        bufferedWriter.write(ingredientArray.get(endCount).getInfo());
-                        bufferedWriter.newLine();
-                        endCount = endCount + 1;
-                    }
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Recipe successfuly saved to: " + selectedDirectory);
-                    alert.showAndWait();
-
-                    bufferedWriter.close();
-                }
-                catch(IOException ex){
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("There was an error saving the recipe.");
-                    alert.showAndWait();
-                    return;
-                }
-            }
-        }
-        else {
-            return;
-        }
     }
 
     public static Boolean getRound(){
@@ -539,5 +460,42 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML public void SavedRecipes(){
+        myController.setScreen(Main.screen2ID);
+    }
+
+    //Called when initializing if .ser file is present.
+    /*public void Load() {
+        //Begin loading from .ser
+        try {
+            FileInputStream fis = new FileInputStream("savedRecipes.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            savedRecipes = (ArrayList) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException ioe) {
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load previous receipts.");
+            alert.showAndWait();
+            ioe.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load previous receipts.");
+            alert.showAndWait();
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return;
+        }
+    }*/
+
+    public void InitializeImages(){
+        imgInfo.setImage(new Image("images/info.png"));
+        imgDonate.setImage(new Image("images/donate.png"));
+        imgBackground.setImage(new Image("images/background.jpg"));
     }
 }

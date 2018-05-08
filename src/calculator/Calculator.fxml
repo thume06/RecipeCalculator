@@ -12,9 +12,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.CalculatorScreen">
    <children>
-      <ImageView fitHeight="680.0" fitWidth="534.0" layoutX="1.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgBackground" fitHeight="680.0" fitWidth="534.0" layoutX="1.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/images/background.jpg" />
+            <Image url="@../../assets/images/background.jpg" />
          </image>
       </ImageView>
       <Label layoutX="101.0" layoutY="14.0" text="RECIPE CALCULATOR">
@@ -66,7 +66,7 @@
       <Button fx:id="btnSave" layoutX="36.0" layoutY="571.0" mnemonicParsing="false" onAction="#Save" prefHeight="25.0" prefWidth="149.0" text="Save" />
       <ImageView fx:id="imgDonate" fitHeight="52.0" fitWidth="209.0" layoutX="45.0" layoutY="608.0" onMouseEntered="#DonateHover" onMouseExited="#DonateExit" onMousePressed="#Donate" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/images/donate.png" />
+            <Image url="@../../assets/images/donate.png" />
          </image></ImageView>
       <Label layoutX="60.0" layoutY="496.0" text="Save Recipe:">
          <font>
@@ -74,14 +74,19 @@
          </font>
       </Label>
       <Label layoutX="68.0" layoutY="523.0" text="Recipe name:" />
-      <Button fx:id="btnClear" layoutX="224.0" layoutY="619.0" mnemonicParsing="false" onAction="#ClearPressed" prefHeight="25.0" prefWidth="279.0" text="Clear All Ingredients">
+      <Button layoutX="224.0" layoutY="619.0" mnemonicParsing="false" onAction="#SavedRecipes" prefHeight="30.0" prefWidth="279.0" text="Saved Recipes Menu">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnClear" layoutX="224.0" layoutY="569.0" mnemonicParsing="false" onAction="#ClearPressed" prefHeight="25.0" prefWidth="279.0" text="Clear All Ingredients">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <ListView fx:id="ingredientList" layoutX="224.0" layoutY="69.0" prefHeight="539.0" prefWidth="279.0" />
+      <ListView fx:id="ingredientList" layoutX="224.0" layoutY="69.0" prefHeight="494.0" prefWidth="279.0" />
       <ImageView fx:id="imgInfo" fitHeight="39.0" fitWidth="45.0" layoutX="462.0" layoutY="19.0" onMouseEntered="#HelpHover" onMouseExited="#HelpExit" onMousePressed="#Help" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/images/info.png" />
+            <Image url="@../../assets/images/info.png" />
          </image>
       </ImageView>
    </children>

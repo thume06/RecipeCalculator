@@ -5,15 +5,25 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.lang.String;
+import java.util.ArrayList;
 
 
 public class Main extends Application {
 
     private static Main instance;
 
+    public static ArrayList<Recipe> savedRecipes = new ArrayList<Recipe>();
+
     public static String screen1ID = "Calculator";
     public static String screen1File = "Calculator.fxml";
+    public static String screen2ID = "SavedRecipes";
+    public static String screen2File = "SavedRecipes.fxml";
     public static String screen3ID = "Help";
     public static String screen3File = "Help.fxml";
 
@@ -34,6 +44,7 @@ public class Main extends Application {
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(Main.screen1ID, Main.screen1File);
+        mainContainer.loadScreen(Main.screen2ID, Main.screen2File);
         mainContainer.loadScreen(Main.screen3ID, Main.screen3File);
 
         mainContainer.setScreen(Main.screen1ID);
@@ -54,7 +65,33 @@ public class Main extends Application {
         stage.setHeight(h);
     }
 
+    public static void Load() {
+        //Begin loading from .ser
+        try {
+            FileInputStream fis = new FileInputStream("savedRecipes.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            savedRecipes = (ArrayList<Recipe>) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+
+            c.printStackTrace();
+            return;
+        }
+    }
+
     public static void main (String[]args){
+        File saveDir = new File("savedRecipes.ser");
+        if(saveDir.exists()) {
+            Load();
+            System.out.println("Loaded recipes");
+        }
+        else{
+            System.out.println("Saved recipe directory does not exist");
+        }
         launch(args);
     }
 
