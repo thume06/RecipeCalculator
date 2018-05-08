@@ -12,6 +12,7 @@ public class Recipe implements Serializable {
         recipe = r;
     }
 
+
     public String getName(){
         return name;
     }

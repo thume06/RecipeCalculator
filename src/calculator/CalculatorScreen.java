@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.DirectoryChooser;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,8 +27,11 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
     TextInputDialog dialog = new TextInputDialog();
 
-    private ScreensController myController;
+    private static ScreensController myController;
     private Main mainClass;
+    public static boolean toLoad = false;
+    public static int loadIndex;
+    public static String loadText;
     private String name;
     private String unit;
     private double amnt;
@@ -423,6 +425,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
         //Save begins after checks
         try{
+            boolean overwritten = false;
             FileOutputStream fos= new FileOutputStream("savedRecipes.ser");
             ObjectOutputStream oos= new ObjectOutputStream(fos);
             ArrayList<Ingredient> tempIngredientArray = new ArrayList<Ingredient>();
@@ -431,13 +434,35 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                 tempIngredientArray.add(new Ingredient(ingredientArray.get(count).getName(), ingredientArray.get(count).getAmount(), ingredientArray.get(count).getUnit()));
                 count++;
             }
+            count = 0;
+            while(count < Main.savedRecipes.size()){
+                if(Main.savedRecipes.get(count).getName().equals(originalName)){
+                    Main.savedRecipes.remove(count);
+                    overwritten = true;
+                }
+                count++;
+            }
             Main.savedRecipes.add(new Recipe(originalName, tempIngredientArray));
             oos.writeObject(Main.savedRecipes);
             oos.close();
             fos.close();
+            Collections.sort(Main.savedRecipes, new Comparator<Recipe>() {
+                @Override
+                public int compare(Recipe r1, Recipe r2) {
+                    String s1 = r1.getName();
+                    String s2 = r2.getName();
+                    return s1.compareToIgnoreCase(s2);
+                }
+
+            });
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Recipe saved.");
+            if(overwritten){
+                alert.setContentText("Recipe overwritten.");
+            }
+            else{
+                alert.setContentText("Recipe saved.");
+            }
             alert.showAndWait();
         }
         catch(IOException ioe){
@@ -466,36 +491,35 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         myController.setScreen(Main.screen2ID);
     }
 
-    //Called when initializing if .ser file is present.
-    /*public void Load() {
-        //Begin loading from .ser
-        try {
-            FileInputStream fis = new FileInputStream("savedRecipes.ser");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            savedRecipes = (ArrayList) ois.readObject();
-            ois.close();
-            fis.close();
-        } catch (IOException ioe) {
+    @FXML public void CheckToLoad(){
+        if(toLoad){
+            ingredientArray.clear();
+            ingredientList.getItems().clear();
+            count = 0;
+            while(count < Main.savedRecipes.get(loadIndex).getRecipe().size()){
+                String ingredientName = Main.savedRecipes.get(loadIndex).getRecipe().get(count).getName();
+                double ingredientAmount = Main.savedRecipes.get(loadIndex).getRecipe().get(count).getAmount();
+                String ingredientUnit = Main.savedRecipes.get(loadIndex).getRecipe().get(count).getUnit();
+                ingredientArray.add(new Ingredient(ingredientName, ingredientAmount, ingredientUnit));
+                ingredientList.getItems().add(Main.savedRecipes.get(loadIndex).getRecipe().get(count).getInfo());
+                count++;
+            }
+            saveName.setText(loadText);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("Failed to load previous receipts.");
+            alert.setContentText("Recipe loaded successfully.");
             alert.showAndWait();
-            ioe.printStackTrace();
-            return;
-        } catch (ClassNotFoundException c) {
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Failed to load previous receipts.");
-            alert.showAndWait();
-            System.out.println("Class not found");
-            c.printStackTrace();
+            toLoad = false;
+        }
+        else{
             return;
         }
-    }*/
+    }
 
     public void InitializeImages(){
         imgInfo.setImage(new Image("images/info.png"));
         imgDonate.setImage(new Image("images/donate.png"));
         imgBackground.setImage(new Image("images/background.jpg"));
     }
+
 }

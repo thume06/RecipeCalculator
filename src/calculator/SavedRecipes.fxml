@@ -8,23 +8,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane onMouseEntered="#ScreenLoaded" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.SavedRecipes">
+<AnchorPane onKeyReleased="#ScreenLoaded" onMouseEntered="#ScreenLoaded" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.SavedRecipes">
    <children>
-      <ImageView fx:id="background" fitHeight="680.0" fitWidth="534.0" onMouseEntered="#ScreenLoaded" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background" fitHeight="680.0" fitWidth="534.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/images/background.jpg" />
          </image>
       </ImageView>
-      <ListView fx:id="recipeList" layoutX="58.0" layoutY="73.0" prefHeight="517.0" prefWidth="423.0" />
-      <Button layoutX="58.0" layoutY="613.0" mnemonicParsing="false" onAction="#LoadSelectedRecipe" text="Load Selected Recipe">
+      <ListView fx:id="recipeList" layoutX="56.0" layoutY="72.0" prefHeight="487.0" prefWidth="423.0" />
+      <Button layoutX="58.0" layoutY="570.0" mnemonicParsing="false" onAction="#LoadSelectedRecipe" prefHeight="30.0" prefWidth="161.0" text="Load Selected Recipe">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="329.0" layoutY="613.0" mnemonicParsing="false" onAction="#ReturnToCalculator" prefHeight="30.0" prefWidth="152.0" text="Return to Calculator">
+      <Button layoutX="320.0" layoutY="570.0" mnemonicParsing="false" onAction="#DeleteSelectedRecipe" text="Delete Selected Recipe">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Button layoutX="187.0" layoutY="636.0" mnemonicParsing="false" onAction="#ReturnToCalculator" prefHeight="30.0" prefWidth="161.0" text="Return to Calculator">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="155.0" layoutY="22.0" text="Saved Recipes">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
