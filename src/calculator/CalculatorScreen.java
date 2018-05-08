@@ -505,6 +505,8 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                 count++;
             }
             saveName.setText(loadText);
+            undoList.clear();
+            actions.clear();
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
             alert.setContentText("Recipe loaded successfully.");
