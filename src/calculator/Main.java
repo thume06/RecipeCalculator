@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -57,6 +59,12 @@ public class Main extends Application {
         stage.sizeToScene();
         stage.setTitle("Recipe Calculator");
         stage.getIcons().add(new Image("images/recipeBook.png"));
+        //Filter makes so that space can no longer be pressed to interact with controls (except for typing).
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, k -> {
+            if ( k.getCode() == KeyCode.SPACE){
+                k.consume();
+            }
+        });
         stage.show();
     }
 

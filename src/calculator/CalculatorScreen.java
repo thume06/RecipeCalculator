@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -71,7 +72,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         amount.setItems(FXCollections.observableArrayList(
                 "1", "1/2", "1/3", "2/3", "1/4", "3/4", "1/8", "Other"));
         amount.setValue("1");
-
     }
 
     public void setScreenParent(ScreensController screenParent){

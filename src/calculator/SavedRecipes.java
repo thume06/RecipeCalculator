@@ -36,8 +36,6 @@ public class SavedRecipes implements Initializable, ControlledScreen{
         background.setImage(new Image("images/background.jpg"));
     }
 
-    //This method is only called when the mouse is detected over the screen when it is switched, so by having the mouse off the screen and
-    //pressing space to interact with the button you can avoid calling this method. Can fix by switching button to ImageView, which must be clicked.
     @FXML public void ScreenLoaded(){
         if(!loaded){
             int count = 0;
