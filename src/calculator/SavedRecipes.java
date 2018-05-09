@@ -56,12 +56,12 @@ public class SavedRecipes implements Initializable, ControlledScreen{
     }
 
     @FXML public void LoadSelectedRecipe(){
-        CalculatorScreen.toLoad = true;
         int index = recipeList.getSelectionModel().getSelectedIndex();
         CalculatorScreen.loadIndex = index;
         CalculatorScreen.loadText = Main.savedRecipes.get(index).getName();
         recipeList.getItems().clear();
         loaded = false;
+        CalculatorScreen.toLoad = true;
         myController.setScreen(Main.screen1ID);
     }
 

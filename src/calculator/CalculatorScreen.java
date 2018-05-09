@@ -16,8 +16,6 @@ import java.util.ResourceBundle;
 
 public class CalculatorScreen implements Initializable, ControlledScreen {
     static ArrayList<Ingredient> ingredientArray = new ArrayList<Ingredient>();
-    ArrayList<Character> invalidChars = new ArrayList<>();
-    ArrayList<String> invalidStrings = new ArrayList<>();
     ArrayList<Double> conversions = new ArrayList<>();
     ArrayList<String> actions = new ArrayList<>();
     ArrayList<Ingredient> removeArray = new ArrayList<Ingredient>();
@@ -507,10 +505,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             saveName.setText(loadText);
             undoList.clear();
             actions.clear();
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Recipe loaded successfully.");
-            alert.showAndWait();
             toLoad = false;
         }
         else{
