@@ -74,7 +74,7 @@ public class SavedRecipes implements Initializable, ControlledScreen{
 
     public void Save(){
         try{
-            FileOutputStream fos= new FileOutputStream("savedRecipes.ser");
+            FileOutputStream fos= new FileOutputStream("Recipe Calculator Save/savedRecipes.ser");
             ObjectOutputStream oos= new ObjectOutputStream(fos);
             oos.writeObject(Main.savedRecipes);
             oos.close();

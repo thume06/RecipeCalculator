@@ -76,7 +76,7 @@ public class Main extends Application {
     public static void Load() {
         //Begin loading from .ser
         try {
-            FileInputStream fis = new FileInputStream("savedRecipes.ser");
+            FileInputStream fis = new FileInputStream("src/savedRecipes.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
             savedRecipes = (ArrayList<Recipe>) ois.readObject();
             ois.close();
@@ -91,14 +91,19 @@ public class Main extends Application {
         }
     }
 
+    public static void CreateSaveDirectory(){
+        new File("Recipe Calculator Save").mkdirs();
+    }
+
     public static void main (String[]args){
-        File saveDir = new File("savedRecipes.ser");
+        File saveDir = new File("Recipe Calculator Save/savedRecipes.ser");
         if(saveDir.exists()) {
             Load();
             System.out.println("Loaded recipes");
         }
         else{
-            System.out.println("Saved recipe directory does not exist");
+            CreateSaveDirectory();
+            System.out.println("Saved recipe directory created");
         }
         launch(args);
     }

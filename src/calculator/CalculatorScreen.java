@@ -424,7 +424,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         //Save begins after checks
         try{
             boolean overwritten = false;
-            FileOutputStream fos= new FileOutputStream("savedRecipes.ser");
+            FileOutputStream fos= new FileOutputStream("Recipe Calculator Save/savedRecipes.ser");
             ObjectOutputStream oos= new ObjectOutputStream(fos);
             ArrayList<Ingredient> tempIngredientArray = new ArrayList<Ingredient>();
             count = 0;
