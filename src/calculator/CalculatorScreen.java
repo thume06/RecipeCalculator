@@ -28,6 +28,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
 
     private static ScreensController myController;
     private Main mainClass;
+    private double divisionCounter = 0.0;
     public static boolean toLoad = false;
     public static int loadIndex;
     public static String loadText;
@@ -207,10 +208,19 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         conversions.clear();
         actions.clear();
         undoList.clear();
+        divisionCounter = 0.0;
     }
 
     @FXML public void QuarterPressed(){
+        if(ingredientArray.size() == 0){
+            return;
+        }
+        if(divisionCounter >= 100.0){
+            DivisionAlert();
+            return;
+        }
         ingredientList.getItems().clear();
+        divisionCounter = divisionCounter + (100/3.0);
         count = 0;
         while(count < ingredientArray.size()){
             ingredientArray.get(count).quarter();
@@ -222,7 +232,15 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void HalfPressed(){
+        if(ingredientArray.size() == 0){
+            return;
+        }
+        if(divisionCounter >= 100.0){
+            DivisionAlert();
+            return;
+        }
         ingredientList.getItems().clear();
+        divisionCounter = divisionCounter + (100.0/6.0);
         count = 0;
         while(count < ingredientArray.size()){
             ingredientArray.get(count).half();
@@ -234,6 +252,10 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void DoublePressed(){
+        if(ingredientArray.size() == 0){
+            return;
+        }
+        divisionCounter = divisionCounter + (100.0/6.0);
         ingredientList.getItems().clear();
         count = 0;
         while(count < ingredientArray.size()){
@@ -246,6 +268,10 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void QuadPressed(){
+        if(ingredientArray.size() == 0){
+            return;
+        }
+        divisionCounter = divisionCounter - (100/3.0);
         ingredientList.getItems().clear();
         count = 0;
         while(count < ingredientArray.size()){
@@ -258,6 +284,10 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void TriplePressed(){
+        if(ingredientArray.size() == 0){
+            return;
+        }
+        divisionCounter = divisionCounter - (100/4.0);
         ingredientList.getItems().clear();
         count = 0;
         while(count < ingredientArray.size()){
@@ -270,7 +300,15 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void ThirdPressed(){
+        if(ingredientArray.size() == 0){
+            return;
+        }
+        if(divisionCounter >= 100.0){
+            DivisionAlert();
+            return;
+        }
         ingredientList.getItems().clear();
+        divisionCounter = divisionCounter + (100/4.0);
         count = 0;
         while(count < ingredientArray.size()){
             ingredientArray.get(count).third();
@@ -297,6 +335,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             if (result.get() == buttonTypeCancel){
                 return;
             }
+            divisionCounter = 0.0;
         }
         selectionindex = ingredientList.getSelectionModel().getSelectedIndex();
         ingredientList.getItems().remove(selectionindex);
@@ -489,6 +528,13 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         myController.setScreen(Main.screen2ID);
     }
 
+    public void DivisionAlert(){
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Too many divisions. Stop trying to break the program!");
+        alert.showAndWait();
+    }
+
     @FXML public void CheckToLoad(){
         if(toLoad){
             ingredientArray.clear();
@@ -517,5 +563,4 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         imgDonate.setImage(new Image("images/donate.png"));
         imgBackground.setImage(new Image("images/background.jpg"));
     }
-
 }
