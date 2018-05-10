@@ -76,7 +76,7 @@ public class Main extends Application {
     public static void Load() {
         //Begin loading from .ser
         try {
-            FileInputStream fis = new FileInputStream("src/savedRecipes.ser");
+            FileInputStream fis = new FileInputStream("Recipe Calculator Save/savedRecipes.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
             savedRecipes = (ArrayList<Recipe>) ois.readObject();
             ois.close();
