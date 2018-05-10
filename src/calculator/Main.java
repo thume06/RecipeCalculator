@@ -99,11 +99,9 @@ public class Main extends Application {
         File saveDir = new File("Recipe Calculator Save/savedRecipes.ser");
         if(saveDir.exists()) {
             Load();
-            System.out.println("Loaded recipes");
         }
         else{
             CreateSaveDirectory();
-            System.out.println("Saved recipe directory created");
         }
         launch(args);
     }

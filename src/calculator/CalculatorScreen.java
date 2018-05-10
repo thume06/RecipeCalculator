@@ -87,7 +87,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if(name.equals("")){
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("You cannot add an ingredient with an empty name field");
+            alert.setContentText("You cannot add an ingredient with an empty name field.");
             alert.showAndWait();
         }
         else {
@@ -127,7 +127,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                     catch(NumberFormatException e){
                         alert.setTitle("Error");
                         alert.setHeaderText(null);
-                        alert.setContentText("Invalid decimal or whole number value");
+                        alert.setContentText("Invalid decimal or whole number value.");
                         alert.showAndWait();
                         return;
                     }
@@ -148,7 +148,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                     if(result.get().equals("")) {
                         alert.setTitle("Information Dialog");
                         alert.setHeaderText(null);
-                        alert.setContentText("A name for the unit must be given");
+                        alert.setContentText("A name for the unit must be given.");
                         alert.showAndWait();
                         return;
                     }
@@ -190,7 +190,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML public void ClearPressed(){
         confirm.setTitle("Clear Recipe");
         confirm.setHeaderText(null);
-        confirm.setContentText("You can no longer undo actions after clearing the recipe");
+        confirm.setContentText("You can no longer undo actions after clearing the recipe.");
         confirm.setGraphic(null);
 
         ButtonType buttonTypeOne = new ButtonType("Continue");
@@ -285,7 +285,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if (ingredientArray.size() == 1){
             confirm.setTitle("Last Item");
             confirm.setHeaderText(null);
-            confirm.setContentText("You can no longer undo actions after removing the last item");
+            confirm.setContentText("You can no longer undo actions after removing the last item.");
             confirm.setGraphic(null);
 
             ButtonType buttonTypeOne = new ButtonType("Continue");
@@ -316,7 +316,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if(actions.size() == 0){
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
-            alert.setContentText("No actions to undo");
+            alert.setContentText("No actions to undo.");
             alert.showAndWait();
             return;
         }
