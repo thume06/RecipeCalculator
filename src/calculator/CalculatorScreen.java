@@ -170,6 +170,13 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                     return;
                 }
             }
+            if(amnt < .125){
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Sorry, to prevent issues you cannot enter a custom amount less than .125 (1/8).");
+                alert.showAndWait();
+                return;
+            }
             ingredientList.getItems().clear();
             ingredientArray.add(new Ingredient(name, amnt, unit));
             actions.add("item");
