@@ -318,10 +318,13 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void Remove(){
+        if(ingredientList.getSelectionModel().isEmpty()){
+            return;
+        }
         if (ingredientArray.size() == 1){
             confirm.setTitle("Last Item");
             confirm.setHeaderText(null);
-            confirm.setContentText("You can no longer undo actions after removing the last item.");
+            confirm.setContentText("WARNING: You can no longer undo actions after removing the last item.");
             confirm.setGraphic(null);
 
             ButtonType buttonTypeOne = new ButtonType("Continue");

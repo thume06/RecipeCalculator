@@ -54,6 +54,9 @@ public class SavedRecipes implements Initializable, ControlledScreen{
     }
 
     @FXML public void LoadSelectedRecipe(){
+        if(recipeList.getSelectionModel().isEmpty()){
+            return;
+        }
         int index = recipeList.getSelectionModel().getSelectedIndex();
         CalculatorScreen.loadIndex = index;
         CalculatorScreen.loadText = Main.savedRecipes.get(index).getName();
@@ -64,6 +67,9 @@ public class SavedRecipes implements Initializable, ControlledScreen{
     }
 
     @FXML public void DeleteSelectedRecipe(){
+        if(recipeList.getSelectionModel().isEmpty()){
+            return;
+        }
         int selectionindex = recipeList.getSelectionModel().getSelectedIndex();
         recipeList.getItems().remove(selectionindex);
         recipeList.getSelectionModel().select(selectionindex);
