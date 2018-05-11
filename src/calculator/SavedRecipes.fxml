@@ -16,7 +16,7 @@
          </image>
       </ImageView>
       <ListView fx:id="recipeList" layoutX="56.0" layoutY="72.0" prefHeight="487.0" prefWidth="423.0" />
-      <Button layoutX="58.0" layoutY="570.0" mnemonicParsing="false" onAction="#LoadSelectedRecipe" prefHeight="30.0" prefWidth="161.0" text="Load Selected Recipe">
+      <Button layoutX="56.0" layoutY="570.0" mnemonicParsing="false" onAction="#LoadSelectedRecipe" prefHeight="30.0" prefWidth="161.0" text="Load Selected Recipe">
          <font>
             <Font size="14.0" />
          </font>
