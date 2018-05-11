@@ -133,16 +133,19 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                     try{
                         Double.parseDouble(result.get());
                         amnt = Double.valueOf(result.get());
+                        dialog.getEditor().clear();
                     }
                     catch(NumberFormatException e){
                         alert.setTitle("Error");
                         alert.setHeaderText(null);
                         alert.setContentText("Invalid decimal or whole number value.");
                         alert.showAndWait();
+                        dialog.getEditor().clear();
                         return;
                     }
                 }
                 else{
+                    dialog.getEditor().clear();
                     return;
                 }
             }
@@ -160,13 +163,16 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
                         alert.setHeaderText(null);
                         alert.setContentText("A name for the unit must be given.");
                         alert.showAndWait();
+                        dialog.getEditor().clear();
                         return;
                     }
                     else{
                         unit = result.get();
+                        dialog.getEditor().clear();
                     }
                 }
                 else{
+                    dialog.getEditor().clear();
                     return;
                 }
             }
@@ -210,7 +216,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         }
         confirm.setTitle("Clear Recipe");
         confirm.setHeaderText(null);
-        confirm.setContentText("You can no longer undo actions after clearing the recipe.");
+        confirm.setContentText("WARNING: You can no longer undo actions after clearing the recipe.");
         confirm.setGraphic(null);
 
         ButtonType buttonTypeOne = new ButtonType("Continue");
