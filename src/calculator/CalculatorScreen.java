@@ -187,6 +187,9 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     }
 
     @FXML public void ClearPressed(){
+        if(ingredientList.getItems().size() == 0){
+            return;
+        }
         confirm.setTitle("Clear Recipe");
         confirm.setHeaderText(null);
         confirm.setContentText("You can no longer undo actions after clearing the recipe.");
