@@ -232,7 +232,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             return;
         }
         ingredientList.getItems().clear();
-        divisionCounter = divisionCounter + (100/3.0);
+        divisionCounter = divisionCounter + (100/2.1);
         count = 0;
         while(count < ingredientArray.size()){
             ingredientArray.get(count).quarter();
@@ -252,7 +252,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             return;
         }
         ingredientList.getItems().clear();
-        divisionCounter = divisionCounter + (100.0/6.0);
+        divisionCounter = divisionCounter + (100.0/5.1);
         count = 0;
         while(count < ingredientArray.size()){
             ingredientArray.get(count).half();
@@ -267,7 +267,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if(ingredientArray.size() == 0){
             return;
         }
-        divisionCounter = divisionCounter + (100.0/6.0);
+        divisionCounter = divisionCounter + (100.0/5.1);
         ingredientList.getItems().clear();
         count = 0;
         while(count < ingredientArray.size()){
@@ -283,7 +283,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if(ingredientArray.size() == 0){
             return;
         }
-        divisionCounter = divisionCounter - (100/3.0);
+        divisionCounter = divisionCounter - (100/2.1);
         ingredientList.getItems().clear();
         count = 0;
         while(count < ingredientArray.size()){
@@ -299,7 +299,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         if(ingredientArray.size() == 0){
             return;
         }
-        divisionCounter = divisionCounter - (100/4.0);
+        divisionCounter = divisionCounter - (100/3.1);
         ingredientList.getItems().clear();
         count = 0;
         while(count < ingredientArray.size()){
@@ -320,7 +320,7 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             return;
         }
         ingredientList.getItems().clear();
-        divisionCounter = divisionCounter + (100/4.0);
+        divisionCounter = divisionCounter + (100/3.1);
         count = 0;
         while(count < ingredientArray.size()){
             ingredientArray.get(count).third();
