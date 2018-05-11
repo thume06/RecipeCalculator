@@ -66,10 +66,10 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
         mainClass = Main.getInstance();
         InitializeImages();
         unitChoices.setItems(FXCollections.observableArrayList(
-                "Cup", "Tbsp", "Tsp", "Other"));
+                "Cup", "Tbsp", "Tsp", "None", "Other"));
         unitChoices.setValue("Cup");
         amount.setItems(FXCollections.observableArrayList(
-                "1", "1/2", "1/3", "2/3", "1/4", "3/4", "1/8", "Other"));
+                "3", "2", "1", "1/2", "1/3", "2/3", "1/4", "3/4", "1/8", "Other"));
         amount.setValue("1");
     }
 
@@ -80,7 +80,12 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     @FXML public void AddPressed(){
         count = 0;
         name = ingredientName.getText();
-        unit = String.valueOf(unitChoices.getSelectionModel().getSelectedItem());
+        if(String.valueOf(unitChoices.getSelectionModel().getSelectedItem()).equals("None")){
+            unit = "";
+        }
+        else{
+            unit = String.valueOf(unitChoices.getSelectionModel().getSelectedItem());
+        }
 
         //Makes sure the fields are not empty
         if(name.equals("")){
@@ -94,6 +99,12 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
             amntSelection = String.valueOf(amount.getSelectionModel().getSelectedItem());
             if(amntSelection.equals("1")){
                 amnt = 1;
+            }
+            else if (amntSelection.equals("2")){
+                amnt = 2;
+            }
+            else if(amntSelection.equals("3")){
+                amnt = 3;
             }
             else if (amntSelection.equals("1/2")){
                 amnt = .5;
