@@ -10,7 +10,7 @@
 
 <AnchorPane onKeyReleased="#ScreenLoaded" onMouseEntered="#ScreenLoaded" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.SavedRecipes">
    <children>
-      <ImageView fx:id="background" fitHeight="680.0" fitWidth="534.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background" fitHeight="680.0" fitWidth="534.0" layoutX="1.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" scaleX="1.01">
          <image>
             <Image url="@../../assets/images/background.jpg" />
          </image>

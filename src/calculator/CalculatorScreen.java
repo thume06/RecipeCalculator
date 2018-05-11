@@ -39,8 +39,6 @@ public class CalculatorScreen implements Initializable, ControlledScreen {
     private int count;
     private int selectionindex;
     private String save;
-    private Character tempChar;
-    private String tempString;
     public static boolean round = true;
 
     @FXML Button btnUndo;

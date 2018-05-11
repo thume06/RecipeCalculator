@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#CheckToLoad" prefHeight="680.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.CalculatorScreen">
    <children>
-      <ImageView fx:id="imgBackground" fitHeight="680.0" fitWidth="534.0" layoutX="1.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgBackground" fitHeight="680.0" fitWidth="534.0" layoutX="1.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" scaleX="1.01">
          <image>
             <Image url="@../../assets/images/background.jpg" />
          </image>
