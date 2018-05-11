@@ -31,7 +31,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="155.0" layoutY="22.0" text="Saved Recipes">
+      <Label layoutX="144.0" layoutY="22.0" text="SAVED RECIPES">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>
